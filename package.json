@@ -9,6 +9,7 @@
         "@symfony/ux-vue": "file:vendor/symfony/ux-vue/assets",
         "@symfony/webpack-encore": "^5.0.0",
         "core-js": "^3.38.0",
+        "file-loader": "^6.0.0",
         "regenerator-runtime": "^0.13.9",
         "vue": "^3.0",
         "vue-loader": "^17.4.2",
@@ -23,5 +24,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "bulma": "^1.0.2"
     }
 }

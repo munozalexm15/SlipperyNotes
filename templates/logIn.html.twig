@@ -12,9 +12,9 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="fullscreen">
         {% block body %}
-        <div {{ vue_component('LogIn', {}) }}></div>
+        <div style="height:100%" class="fullscreen" {{ vue_component('LogIn', {}) }}></div>
         {% endblock %}
     </body>
 </html>
