@@ -1,0 +1,25 @@
+USUARIOS:
+- Registrar usuario (encriptar contraseña)
+- Iniciar sesión
+- Cerrar sesión
+- Borrar cuenta
+- Obtener info del usuario
+- Enviar info actualizada del usuario
+
+NOTAS:
+- Crear nota [!]
+- Editar nota
+- Borrar nota
+- Añadir recordatorio
+- Filtrar notas (Por fecha, por recordatorio más cercano, etc.)
+- Archivar nota
+- Añadir foto
+- Añadir categoria
+
+Fotos
+- Subir foto y enlazar a nota
+- Borrar foto de la nota
+
+CATEGORIAS:
+- Añadir categorias [!]
+- Borrar categorias
