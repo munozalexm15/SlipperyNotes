@@ -14,18 +14,23 @@
     </head>
     <body>
         {% block body %}
-
-            <div class="container">
-                <div class="row is-one-third has-text-centered mb-5">
-                    <h1 class="is-size-1 has-text-weight-bold">Let your thoughts slide into a note.</h1>
-                    <button {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
+            <section class="hero is-fullheight">
+                <div class="hero-body has-text-centered">
+                    <div class="container">
+                        <div class="container">
+                            <div class="row is-one-third has-text-centered mb-5">
+                                <h1 class="is-size-1 has-text-weight-bold">Let your thoughts slide into a note.</h1>
+                                <button class="mt-5" {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
+                            </div>
+                            <div class="columns is-3">
+                                <div class="column"></div>
+                                <div class ="is-5 row column is-centered m-5" {{ vue_component('noteCard', { }) }}></div>
+                                <div class="column"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="columns is-3">
-                    <div class="column"></div>
-                    <div class ="is-5 row column is-centered m-5" {{ vue_component('noteCard', { }) }}></div>
-                    <div class="column"></div>
-                </div>
-            </div>
+            </section>
         {% endblock %}
     </body>
 </html>
