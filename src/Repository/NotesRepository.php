@@ -16,6 +16,16 @@ class NotesRepository extends ServiceEntityRepository
         parent::__construct($registry, Notes::class);
     }
 
+    public function getNotesCount(): int
+    {
+        $entitymanager = $this->getEntityManager();
+
+        $query = $entitymanager->createQuery(
+            'select count(u) from App\Entity\Notes u'
+        );
+        return $query->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Notes[] Returns an array of Notes objects
     //     */

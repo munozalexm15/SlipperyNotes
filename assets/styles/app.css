@@ -9,7 +9,7 @@ html {
 
 .sn-blue-fade {
     background: linear-gradient(to right, #1F9BFD, #1F73FE);
-    box-shadow: #a3a3a3 5px 5px ;
+    box-shadow: #a3a3a3 20px 10px ;
 }
 sn-blue-fade-text {
     color: #1F9BFD;

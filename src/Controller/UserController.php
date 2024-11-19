@@ -58,4 +58,6 @@ class UserController extends AbstractController
             throw new AccessDeniedHttpException();
         }
     }
+
+
 }

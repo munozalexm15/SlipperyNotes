@@ -28,16 +28,23 @@
             <section class="hero is-fullheight">
                 <div class="hero-body has-text-centered">
                     <div class="container">
-                        <div class="container">
-                            I created this UX component because
-                            <span {{ stimulus_controller('symfony/ux-typed', {
-                                strings: ['I ❤ Symfony UX', 'Symfony UX is great', 'Symfony UX is easy']
-                            }) }}></span>
-                            <h1 class="is-size-1 has-text-weight-bold">Let your thoughts slide into a note.</h1>
+                        <div class="container is-size-1 has-text-weight-bold">
+                            <div class="p-5" style="font-size: 1.3em;">
+                                <span {{ stimulus_controller('symfony/ux-typed', {
+                                    strings: ['Let your thoughts slide into a note', 'Slippery Notes'],
+                                    smartBackspace: true,
+                                    startDelay: 100,
+                                    backSpeed: 1,
+                                    backDelay: 3000,
+                                    loop: false,
+                                    showCursor: true,
+                                    cursorChar: '|'
+                                }) }}></span>
+                            </div>
                             <button class="mt-5" {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
                             <div class="columns is-3">
                                 <div class="column"></div>
-                                <div class ="is-5 row column is-centered m-5" {{ vue_component('noteCard', { }) }}></div>
+                                <div class ="is-5 row column is-centered m-5" {{ vue_component('noteCard', { 'userCount': userCount, 'notesCreated': notesCreated }) }}></div>
                                 <div class="column"></div>
                             </div>
                         </div>

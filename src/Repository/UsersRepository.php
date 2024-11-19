@@ -16,10 +16,20 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
+     public function getUserCount(): int
+     {
+        $entitymanager = $this->getEntityManager();
+
+        $query = $entitymanager->createQuery(
+            'select count(u) from App\Entity\Users u'
+        );
+        return $query->getSingleScalarResult();
+     }
+
     //    /**
     //     * @return Users[] Returns an array of Users objects
     //     */
-    //    public function findByExampleField($value): array
+    //     public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('u')
     //            ->andWhere('u.exampleField = :val')
