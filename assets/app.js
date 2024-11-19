@@ -4,6 +4,7 @@ import 'bulma/css/bulma.css'
 import './styles/app.css';
 import logoPath from './images/Logo-noJoin.png';
 import Parallax from "parallax-js/dist/parallax";
+import Typed  from 'typed.js'
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -18,6 +19,8 @@ let html = `<img src="${logoPath}" alt="ACME logo">`;
 
 var scene = document.getElementById('scene');
 var parallaxInstance = new Parallax(scene);
+
+
 
 registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
 

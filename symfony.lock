@@ -251,9 +251,6 @@
     "symfony/ux-turbo": {
         "version": "v2.21.0"
     },
-    "symfony/ux-typed": {
-        "version": "v2.21.0"
-    },
     "symfony/ux-vue": {
         "version": "2.21",
         "recipe": {
