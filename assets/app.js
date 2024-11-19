@@ -1,6 +1,9 @@
 import { registerVueControllerComponents } from '@symfony/ux-vue';
 import './bootstrap.js';
 import 'bulma/css/bulma.css'
+import './styles/app.css';
+import logoPath from './images/Logo-noJoin.png';
+import Parallax from "parallax-js/dist/parallax";
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -9,11 +12,12 @@ import 'bulma/css/bulma.css'
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
 
-import logoPath from './images/Logo-noJoin.png';
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
+
+var scene = document.getElementById('scene');
+var parallaxInstance = new Parallax(scene);
 
 registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
 

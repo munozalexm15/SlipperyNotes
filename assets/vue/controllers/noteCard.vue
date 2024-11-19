@@ -8,17 +8,17 @@ export default {
 
   <div class="card">
     <div class="card-content sn-blue-fade">
-      <p class="title">
+      <p class="title text-white has-text-weight-semibold has-text-left">
         DID YOU KNOW?
       </p>
     </div>
     <footer class="card-footer sn-blue-fade">
-      <p class="has-text-left is-size-4 m-5">
-        More than “number” notes <br>
-        have been already <br>
-        created by “number” users around the world! <br>
+      <p class="has-text-left is-size-4 m-5 text-white">
+        More than “number” notes have been already created by “number” users around the world! <br>
         <br>
         What are you waiting for?
+        <br>
+        <br>
       </p>
 
     </footer>
@@ -28,4 +28,7 @@ export default {
 
 <style scoped>
 
+.text-white {
+  color: white;
+}
 </style>

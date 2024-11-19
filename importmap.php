@@ -50,4 +50,7 @@ return [
     '@symfony/ux-vue' => [
         'path' => './vendor/symfony/ux-vue/assets/dist/loader.js',
     ],
+    'typed.js' => [
+        'version' => '2.1.0',
+    ],
 ];
