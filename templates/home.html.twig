@@ -29,6 +29,10 @@
                 <div class="hero-body has-text-centered">
                     <div class="container">
                         <div class="container">
+                            I created this UX component because
+                            <span {{ stimulus_controller('symfony/ux-typed', {
+                                strings: ['I ❤ Symfony UX', 'Symfony UX is great', 'Symfony UX is easy']
+                            }) }}></span>
                             <h1 class="is-size-1 has-text-weight-bold">Let your thoughts slide into a note.</h1>
                             <button class="mt-5" {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
                             <div class="columns is-3">
