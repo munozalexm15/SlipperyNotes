@@ -1,0 +1,19 @@
+
+body {
+    background-color: white;
+    min-height: 100%;
+}
+html {
+    height: 100%;
+}
+
+.sn-blue-fade {
+    background: linear-gradient(to right, #1F9BFD, #1F73FE);
+    box-shadow: #a3a3a3 20px 10px ;
+}
+
+.no-border-padding-margin {
+    border-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
