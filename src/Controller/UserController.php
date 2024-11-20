@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class UserController extends AbstractController
 {
 
-    #[Route('/registerUser', name: 'create_user')]
+    #[Route('/oldRegisterUser', name: 'oldcreate_user')]
     public function createUser(ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new Users();
