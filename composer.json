@@ -41,6 +41,7 @@
         "symfony/string": "7.1.*",
         "symfony/translation": "7.1.*",
         "symfony/twig-bundle": "7.1.*",
+        "symfony/ux-icons": "^2.21",
         "symfony/ux-turbo": "^2.21",
         "symfony/ux-typed": "^2.21",
         "symfony/ux-vue": "^2.21",
