@@ -17,10 +17,5 @@ import Typed  from 'typed.js'
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
 
-var scene = document.getElementById('scene');
-var parallaxInstance = new Parallax(scene);
-
-
-
 registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
 

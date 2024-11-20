@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class homeController extends AbstractController
 {
 
-    #[Route('/')]
+    #[Route('/', name: 'homepage')]
     public function number(EntityManagerInterface $entityManager): Response
     {
         $userCount = $entityManager->getRepository(Users::class)->getUserCount();

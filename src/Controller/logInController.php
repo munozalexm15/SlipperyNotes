@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class logInController extends AbstractController
 {
-    #[Route('/login')]
+    #[Route(path: '/oldLogin', name: 'oldLogin')]
     public function number(): Response
     {
 

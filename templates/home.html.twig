@@ -9,7 +9,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('homePage') }}
         {% endblock %}
     </head>
     <body class="no-scrollbar">
@@ -41,7 +41,9 @@
                                     cursorChar: '|'
                                 }) }}></span>
                             </div>
-                            <button class="mt-5" {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
+                            <a href="{{ path('app_login') }}">
+                                <button id="startBtn" class="mt-5" {{ vue_component('buttonHome', {'text': "START CREATING"}) }}></button>
+                            </a>
                             <div class="columns is-3">
                                 <div class="column"></div>
                                 <div class ="is-5 row column is-centered m-5" {{ vue_component('noteCard', { 'userCount': userCount, 'notesCreated': notesCreated }) }}></div>

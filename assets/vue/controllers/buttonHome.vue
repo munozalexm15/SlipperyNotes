@@ -1,11 +1,13 @@
 <script setup>
+
 defineProps({
   text: String
 });
+
 </script>
 
 <template>
-  <button class="button is-rounded button-rounded-no-outline is-size-5 bg ">
+  <button class="button is-rounded button-rounded-no-outline is-size-5 bg">
     <span class="txt-sp is-size-4">{{ text }}</span>
   </button>
 </template>
