@@ -26,7 +26,11 @@ class UserController extends AbstractController
         $user->setEmail("popolo90A@gmail.com");
         $user->setUsername("BlueHalp");
 
-        $user->setPassword("superheroe1A");
+        //hash password (encrypt it for less security breaches)
+        $plainPassword = 'superheroe1A';
+
+        $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+        $user->setPassword($hashedPassword);
 
        
         
