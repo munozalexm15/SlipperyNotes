@@ -23,3 +23,13 @@ html {
     background-color:white;
     flex: auto !important;
 }
+
+:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px hsla(220, 100%, 50%, 80%) !important;
+    transition: box-shadow 0.3s ease !important;
+}
+
+.focusTransition {
+    transition: box-shadow 0.3s ease !important;
+}

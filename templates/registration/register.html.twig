@@ -1,27 +1,120 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('loginPage') }}
+    {% endblock %}
 
-{% block title %}Register{% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('loginPage') }}
+    {% endblock %}
+</head>
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <div class="columns fullscreen has-2-cols hero-body no-border-padding-margin is-centered has-text-centered">
 
-    {{ form_errors(registrationForm) }}
+        <section class="column is-6-desktop is-0-mobile is-0-tablet is-0-touch hero is-fullheight is-has-background-white no-border-padding-margin">
+            <figure class="image is-128x128">
+                <img :src="require('../../images/Logo-noJoin.png')"/>
+            </figure>
+        </section>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.password, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.surnames) }}
+        <section class="section column is-6-desktop is-12-tablet is-12-mobile hero is-fullheight sn-blue-fade no-border-padding-margin">
+            <div class="hero-body is-centered columns no-border-padding-margin">
+                <div class="column is-2"></div>
+                <div class="sn-card card column is-8">
 
-        {{ form_row(registrationForm.agreeTerms) }}
+                    <div class="card-content">
+                        <p class="title has-text-weight-semibold has-text-left">
+                            REGISTER
+                        </p>
+                    </div>
+                    <footer class="card-footer columns has-2-cols">
+                        <form class="m-5 column" method="post">
+                            {{ form_errors(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                            {{ form_start(registrationForm) }}
+
+                            <!--Email field-->
+                            <div class="field has-text-left">
+                                <label class="label" for="inputEmail">Email</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="180" class="focusTransition form-control input" id="inputEmail" type="email" name="{{ field_name(registrationForm.email) }}" value="{{ field_value(registrationForm.email) }}">
+                                    <span class="icon is-left is-small">
+                                        {{ ux_icon('octicon:mail-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--Username field-->
+                            <div class="field has-text-left">
+                                <label class="label" for="inputUsername">Username</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="50" class="focusTransition form-control input" id="inputUsername" type="email" name="{{ field_name(registrationForm.username) }}" value="{{ field_value(registrationForm.username) }}">
+                                    <span class="icon is-left is-small">
+                                        {{ ux_icon('octicon:person-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--Password Field-->
+                            <div class="field has-text-left">
+                                <label class="label" for="inputPassword">Password</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="255" class="focusTransition form-control input" id="inputPassword" type="password" name="{{ field_name(registrationForm.password) }}" value="{{ field_value(registrationForm.password) }}">
+                                    <span class="icon is-left is-small">
+                                         <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="field has-text-left">
+                                <label class="label" for="inputConfirmPassword">Confirm Password</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="255" class="focusTransition form-control input" id="inputConfirmPassword" type="password" name="{{ field_name(registrationForm.password) }}" value="{{ field_value(registrationForm.password) }}">
+                                    <span class="icon is-left is-small">
+                                         <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!--Name field-->
+                            <div class="field has-text-left">
+                                <label class="label" for="inputName">Name</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="60" class="focusTransition form-control input" id="inputName" type="email" name="{{ field_name(registrationForm.name) }}" value="{{ field_value(registrationForm.name) }}">
+                                </div>
+                            </div>
+
+                            <!--Surnames field-->
+                            <div class="field has-text-left">
+                                <label class="label" for="inputSurnames">Surnames</label>
+                                <div class="control has-icons-left">
+                                    <input maxlength="80" class="focusTransition form-control input" id="inputSurnames" type="email" name="{{ field_name(registrationForm.surnames) }}" value="{{ field_value(registrationForm.surnames) }}">
+                                </div>
+                            </div>
+
+                                {{ form_row(registrationForm.agreeTerms) }}
+                            <button type="submit" class="btn">Register</button>
+                            {{ form_end(registrationForm) }}
+
+                            <div class="mt-5 pt-5">
+                                <p class="has-text-left">Already have an account? <a href="{{ path('app_login') }}">Fuck off</a></p>
+                            </div>
+                        </form>
+                    </footer>
+                </div>
+
+                <div class="column is-2"></div>
+
+            </div>
+        </section>
+    </div>
 {% endblock %}

@@ -16,7 +16,7 @@
 {% block body %}
     <div class="columns fullscreen has-2-cols hero-body no-border-padding-margin is-centered has-text-centered">
 
-        <section class="column is-6-desktop-only is-0-mobile hero is-fullheight is-has-background-white no-border-padding-margin">
+        <section class="column is-6-desktop is-0-mobile is-0-tablet is-0-touch hero is-fullheight is-has-background-white no-border-padding-margin">
             <figure class="image is-128x128">
                 <img :src="require('../../images/Logo-noJoin.png')"/>
             </figure>
@@ -26,13 +26,18 @@
             <div class="hero-body is-centered columns no-border-padding-margin">
                 <div class="column is-2"></div>
                 <div class="sn-card card column is-8">
+
                     <div class="card-content">
                         <p class="title has-text-weight-semibold has-text-left">
                             LOG IN
                         </p>
                     </div>
-                    <footer class="card-footer">
-                        <form class="m-5" method="post">
+                    <footer class="card-footer columns has-2-cols">
+                        <form class="m-5 column" method="post">
+                            {% if error %}
+                                <div class="has-text-danger has-text-left mb-5">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
                             {% if app.user %}
                                 <div class="mb-3">
                                     You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -42,7 +47,7 @@
                             <div class="field has-text-left">
                                 <label class="label" for="inputUsername">Email</label>
                                 <div class="control has-icons-left">
-                                    <input type="email" value="{{ last_username }}" name="username" id="inputUsername" class="form-control input" autocomplete="username" required autofocus>
+                                    <input type="email" value="{{ last_username }}" name="username" id="inputUsername" class="focusTransition form-control input" autocomplete="username" required autofocus>
                                     <span class="icon is-left is-small">
                                         {{ ux_icon('octicon:mail-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
                                     </span>
@@ -53,7 +58,7 @@
                             <div class="field has-text-left">
                                 <label class="label" for="inputPassword">Password</label>
                                 <div class="control has-icons-left ">
-                                    <input type="password" name="password" id="inputPassword" class="form-control input" autocomplete="current-password" required>
+                                    <input type="password" name="password" id="inputPassword" class="focusTransition form-control input" autocomplete="current-password" required>
                                     <span class="icon is-small is-left">
                                          <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
                                     </span>
@@ -65,19 +70,17 @@
                             <!--REMEMBER ME FIELD -->
                             <div class="field has-text-left">
                                 <label class="label checkbox is-left has-text-left">
-                                    <input type="checkbox" name="_remember_me"> Remember me
+                                    <input type="checkbox" class="focusTransition" name="_remember_me"> Remember me
                                 </label>
                             </div>
 
                             <!-- SIGN IN BUTTON -->
                             <div class="field is-left has-text-left">
-                                <button id="startBtn" type="submit" class="mt-5" {{ vue_component('buttonHome', {'text': "SIGN IN"}) }}></button>
+                                <div {{ vue_component('buttonHome', {'text': "SIGN IN", 'btnSize': "5"}) }}></div>
                             </div>
-
-                            {% if error %}
-                                <div class="has-text-danger has-text-left">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
-
+                            <div class="mt-5 pt-5">
+                                <p class="has-text-left">Don't have an account? <a href="{{ path('app_register') }}">Fuck off</a></p>
+                            </div>
                         </form>
                     </footer>
                 </div>

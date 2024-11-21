@@ -1,13 +1,22 @@
 <script setup>
 
 defineProps({
-  text: String
+  text: {
+    type: String,
+    default: 'SIGN IN',
+    required: false
+  },
+  btnSize: {
+    type: String,
+    default: '5',
+    required: false
+  },
 });
 
 </script>
 
 <template>
-  <button class="button is-rounded button-rounded-no-outline is-size-5 bg">
+  <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-{{btnSize}} bg">
     <span class="txt-sp is-size-4">{{ text }}</span>
   </button>
 </template>
