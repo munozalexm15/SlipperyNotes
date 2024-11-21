@@ -34,10 +34,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 60, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $surnames = null;
 
     #[ORM\Column(nullable: true)]

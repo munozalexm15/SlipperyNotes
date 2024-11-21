@@ -9,7 +9,7 @@
     {% endblock %}
 
     {% block javascripts %}
-        {{ encore_entry_script_tags('loginPage') }}
+        {{ encore_entry_script_tags('registerPage') }}
     {% endblock %}
 </head>
 
@@ -46,7 +46,7 @@
                             <div class="field has-text-left">
                                 <label class="label" for="inputEmail">Email</label>
                                 <div class="control has-icons-left">
-                                    <input maxlength="180" class="focusTransition form-control input" id="inputEmail" type="email" name="{{ field_name(registrationForm.email) }}" value="{{ field_value(registrationForm.email) }}">
+                                    <input maxlength="180" class="focusTransition form-control input" id="inputEmail" type="email" name="{{ field_name(registrationForm.email) }}" value="{{ field_value(registrationForm.email) }}" required>
                                     <span class="icon is-left is-small">
                                         {{ ux_icon('octicon:mail-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
                                     </span>
@@ -57,52 +57,61 @@
                             <div class="field has-text-left">
                                 <label class="label" for="inputUsername">Username</label>
                                 <div class="control has-icons-left">
-                                    <input maxlength="50" class="focusTransition form-control input" id="inputUsername" type="email" name="{{ field_name(registrationForm.username) }}" value="{{ field_value(registrationForm.username) }}">
+                                    <input maxlength="50" class="focusTransition form-control input" id="inputUsername" name="{{ field_name(registrationForm.username) }}" value="{{ field_value(registrationForm.username) }}" required>
                                     <span class="icon is-left is-small">
                                         {{ ux_icon('octicon:person-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
                                     </span>
                                 </div>
                             </div>
 
+
                             <!--Password Field-->
                             <div class="field has-text-left">
+                                <div class="alert alert-danger has-text-danger error mt-5 mb-5" role="alert">{{ form_errors(registrationForm.password.first) }}</div>
                                 <label class="label" for="inputPassword">Password</label>
                                 <div class="control has-icons-left">
-                                    <input maxlength="255" class="focusTransition form-control input" id="inputPassword" type="password" name="{{ field_name(registrationForm.password) }}" value="{{ field_value(registrationForm.password) }}">
-                                    <span class="icon is-left is-small">
-                                         <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
-                                    </span>
+
+                                        <input maxlength="255" class="focusTransition form-control input" id="inputPassword" type="password" name="{{ field_name(registrationForm.password.first) }}" value="{{ field_value(registrationForm.password.first) }}" required>
+                                        <span class="icon is-left is-small">
+                                             <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
+                                        </span>
                                 </div>
                             </div>
 
                             <div class="field has-text-left">
                                 <label class="label" for="inputConfirmPassword">Confirm Password</label>
                                 <div class="control has-icons-left">
-                                    <input maxlength="255" class="focusTransition form-control input" id="inputConfirmPassword" type="password" name="{{ field_name(registrationForm.password) }}" value="{{ field_value(registrationForm.password) }}">
+                                    <input maxlength="255" class="focusTransition form-control input" id="inputConfirmPassword" type="password" name="{{ field_name(registrationForm.password.second) }}" value="{{ field_value(registrationForm.password.second) }}" required>
                                     <span class="icon is-left is-small">
                                          <i class="fa fa-envelope">{{ ux_icon('octicon:lock-16', {height: '16px', width: '16px', 'aria-hidden': true}) }} </i>
                                     </span>
                                 </div>
                             </div>
 
-                            <!--Name field-->
                             <div class="field has-text-left">
-                                <label class="label" for="inputName">Name</label>
-                                <div class="control has-icons-left">
-                                    <input maxlength="60" class="focusTransition form-control input" id="inputName" type="email" name="{{ field_name(registrationForm.name) }}" value="{{ field_value(registrationForm.name) }}">
-                                </div>
+                                <label class="label checkbox is-left has-text-left">
+                                    <a href="#">I accept and agree the <button id="openModal">terms</button> {{ form_widget(registrationForm.agreeTerms) }}</a>
+                                </label>
                             </div>
 
-                            <!--Surnames field-->
-                            <div class="field has-text-left">
-                                <label class="label" for="inputSurnames">Surnames</label>
-                                <div class="control has-icons-left">
-                                    <input maxlength="80" class="focusTransition form-control input" id="inputSurnames" type="email" name="{{ field_name(registrationForm.surnames) }}" value="{{ field_value(registrationForm.surnames) }}">
+                            <!-- MODAL -->
+                            <div id="modal" class="modal">
+                                <div class="modal-background"></div>
+
+                                <div class="modal-content">
+                                    <div class="box">
+                                        <p>Modal JS example</p>
+                                        <!-- Your content -->
+                                    </div>
                                 </div>
+
+                                <button id="closeModal" class="modal-close is-large" aria-label="close"></button>
                             </div>
 
-                                {{ form_row(registrationForm.agreeTerms) }}
-                            <button type="submit" class="btn">Register</button>
+                            <!-- Register button -->
+                            <div class="field is-left has-text-left">
+                                <div {{ vue_component('buttonHome', {'text': "REGISTER", 'btnSize': "5"}) }}></div>
+                            </div>
                             {{ form_end(registrationForm) }}
 
                             <div class="mt-5 pt-5">

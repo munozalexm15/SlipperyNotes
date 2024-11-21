@@ -39,6 +39,8 @@ Encore
 
     .addEntry('loginPage', './assets/pagesJS/loginPage.js')
 
+    .addEntry('registerPage', './assets/pagesJS/registerPage.js')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

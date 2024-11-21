@@ -33,3 +33,7 @@ html {
 .focusTransition {
     transition: box-shadow 0.3s ease !important;
 }
+
+.error > ul > li {
+    color: red;
+}
