@@ -32,7 +32,7 @@
                             LOG IN
                         </p>
                     </div>
-                    <footer class="card-footer columns has-2-cols">
+                    <footer class="card-footer columns ">
                         <form class="m-5 column" method="post">
                             {% if error %}
                                 <div class="has-text-danger has-text-left mb-5">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -79,7 +79,7 @@
                                 <div {{ vue_component('buttonHome', {'text': "SIGN IN", 'btnSize': "5"}) }}></div>
                             </div>
                             <div class="mt-5 pt-5">
-                                <p class="has-text-left">Don't have an account? <a href="{{ path('app_register') }}">Fuck off</a></p>
+                                <p class="has-text-left">Don't have an account? <a href="{{ path('app_register') }}">Create an account</a></p>
                             </div>
                         </form>
                     </footer>

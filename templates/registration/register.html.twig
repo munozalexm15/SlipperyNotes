@@ -89,18 +89,23 @@
                             </div>
 
                             <div class="field has-text-left">
-                                <label class="label checkbox is-left has-text-left">
-                                    <a href="#">I accept and agree the <button id="openModal">terms</button> {{ form_widget(registrationForm.agreeTerms) }}</a>
-                                </label>
+
+                                <p class="label has-text-left">
+                                    {{ form_widget(registrationForm.agreeTerms) }}
+                                    <label>
+                                   I accept and agree the <a id="openModal">terms and conditions </a>
+                                    </label>
+                                </p>
                             </div>
 
                             <!-- MODAL -->
                             <div id="modal" class="modal">
-                                <div class="modal-background"></div>
+                                <div id="modalBackground" class="modal-background"></div>
 
                                 <div class="modal-content">
                                     <div class="box">
-                                        <p>Modal JS example</p>
+                                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                        </p>
                                         <!-- Your content -->
                                     </div>
                                 </div>
@@ -112,11 +117,13 @@
                             <div class="field is-left has-text-left">
                                 <div {{ vue_component('buttonHome', {'text': "REGISTER", 'btnSize': "5"}) }}></div>
                             </div>
-                            {{ form_end(registrationForm) }}
 
                             <div class="mt-5 pt-5">
-                                <p class="has-text-left">Already have an account? <a href="{{ path('app_login') }}">Fuck off</a></p>
+                                <p class="has-text-left">Already have an account? <a href="{{ path('app_login') }}">Log in</a></p>
                             </div>
+                            {{ form_end(registrationForm) }}
+
+
                         </form>
                     </footer>
                 </div>

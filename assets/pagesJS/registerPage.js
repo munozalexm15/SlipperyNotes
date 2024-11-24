@@ -11,12 +11,17 @@ var modal = document.getElementById("modal");
 
 var buttonModalOpener = document.getElementById("openModal");
 var buttonModalClose = document.getElementById("closeModal");
+var modalBackground = document.getElementById("modalBackground");
 
 buttonModalOpener.addEventListener("click", function() {
     modal.classList.add("is-active");
 })
 
 buttonModalClose.addEventListener("click", function() {
+    modal.classList.remove("is-active");
+})
+
+modalBackground.addEventListener("click", function() {
     modal.classList.remove("is-active");
 })
 
