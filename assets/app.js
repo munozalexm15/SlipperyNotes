@@ -2,7 +2,7 @@ import { registerVueControllerComponents } from '@symfony/ux-vue';
 import './bootstrap.js';
 import 'bulma/css/bulma.css'
 import './styles/app.css';
-import logoPath from './images/Logo-noJoin.png';
+import logoPath from '../assets/images/Logo-noJoin.png';
 import Parallax from "parallax-js/dist/parallax";
 import Typed  from 'typed.js'
 /*

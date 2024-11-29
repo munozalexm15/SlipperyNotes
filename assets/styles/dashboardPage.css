@@ -1,0 +1,54 @@
+.button {
+    border-color: white;
+    background: none;
+    width: 100%;
+}
+
+.text-white{
+    color: white;
+}
+
+.is-active {
+    background-color: transparent !important;
+    background-image: linear-gradient(to left, #1F9BFD, #1F73FE) !important;
+    color: transparent;
+    background-clip: text;
+}
+
+.sn-blue-fade {
+    background: linear-gradient(to right, #1F9BFD, #1F73FE);
+    border-radius: 15px;
+    padding: 0.25em;
+}
+
+.square-rounded-ng {
+    background: linear-gradient(to right, #1F9BFD, #1F73FE);
+    border-radius: 0 10px 0  0;
+}
+
+.bg {
+    box-shadow: 0px 0px 0px;
+}
+
+.button-rounded-no-outline {
+    border-color: white;
+    background: none;
+}
+
+.txt-sp {
+    background-image: linear-gradient(to left, #1F9BFD, #1F73FE);
+    color: transparent;
+    background-clip: text;
+}
+
+.icon-sp {
+    color: #1F73FE;
+}
+
+
+button:hover {
+    border-color: #0281e8;
+    background-color: transparent;
+    padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+    padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+}

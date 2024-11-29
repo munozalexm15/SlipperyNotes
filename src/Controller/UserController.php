@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Notes;
 use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +59,25 @@ class UserController extends AbstractController
             throw new AccessDeniedHttpException();
         }
     }
+
+    #[Route('/dashboard', name: 'dashboard')]
+    public function dashboard(EntityManagerInterface $entityManager) : Response
+    {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('homepage');
+        }
+
+        $userID = null;
+        if ($this->getUser()) {
+            $userID = $this->getUser()->getUserIdentifier();
+        }
+        $user =  $entityManager -> getRepository(Users::class)->find($userID);
+        $notes = $entityManager -> getRepository(Notes::class)->findBy(['idUser' => $user]);
+        return $this->render(
+            '/user/index.html.twig', ['user' => $user, 'notes' => $notes]);
+    }
+
+
 
 
 }
