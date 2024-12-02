@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Notes;
 use App\Entity\Users;
+use Doctrine\DBAL\Types\TextType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Config\Framework\RequestConfig;
+use function Sodium\add;
 
 class NotesController extends AbstractController
 {
@@ -42,4 +47,5 @@ class NotesController extends AbstractController
 
         return new Response('Saved new user with id '.$note->getId());
     }
+
 }

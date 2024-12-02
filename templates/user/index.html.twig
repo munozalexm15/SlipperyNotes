@@ -51,7 +51,7 @@
                                             </span>
                                             Notes
                                         </a>
-                                        <ul id="notes-options">
+                                        <ul id="notesOptions">
                                             <li style="user-select: none;">
                                                 <a href="{{ path('create_note', {'id' : user.getId}) }}">
                                                     <span class="icon is-left">
@@ -94,13 +94,13 @@
 
                                     <!-- PROFILE PART -->
                                     <li class=" is-size-4 has-text-weight-medium " style="user-select: none;">
-                                        <a id="addTags">
+                                        <a id="user">
                                             <span class="icon is-left icon-sp">
                                                 {{ ux_icon('proicons:person-2') }}
                                             </span>
                                             <span class="txt-sp">{{ user.getUsername }}</span>
                                         </a>
-                                        <ul id="user-options">
+                                        <ul id="userOptions">
                                             <li style="user-select: none;">
                                                 <a href="{{ path('create_note', {'id' : user.getId}) }}">
                                                     <span class="icon is-left">

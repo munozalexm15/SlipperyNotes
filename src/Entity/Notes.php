@@ -47,6 +47,9 @@ class Notes
     #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'idNote')]
     private Collection $idCategory;
 
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->idCategory = new ArrayCollection();
@@ -180,6 +183,18 @@ class Notes
     public function removeIdCategory(Categories $idCategory): static
     {
         $this->idCategory->removeElement($idCategory);
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

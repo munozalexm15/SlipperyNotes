@@ -15,7 +15,14 @@ let reminderRef = document.getElementById('reminder');
 let addTagsRef = document.getElementById('addTags');
 let lastRef = notesRef
 
-console.log(notesRef);
+
+let userRef = document.getElementById('user');
+let userOptionsRef = document.getElementById('userOptions');
+let isUserMenuOpened = false;
+
+userRef.addEventListener('click', (e) => {
+    userOptionsRef.classList.toggle('is-hidden');
+})
 
 notesRef.addEventListener('click', e => {
     if (lastRef !== notesRef) {
@@ -48,3 +55,5 @@ addTagsRef.addEventListener('click', e => {
     }
     lastRef = addTagsRef;
 })
+
+
