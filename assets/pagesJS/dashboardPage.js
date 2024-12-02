@@ -4,6 +4,7 @@ import 'bulma/css/bulma.css'
 import '../styles/dashboardPage.css';
 import logoPath from '../images/Logo-noJoin.png';
 import VanillaTilt from "vanilla-tilt";
+import tinycolor from "tinycolor2";
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
 
