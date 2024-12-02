@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Notes;
 use App\Entity\Users;
+use App\Form\NoteFormType;
 use Doctrine\DBAL\Types\TextType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Config\Framework\RequestConfig;
-use function Sodium\add;
 
 class NotesController extends AbstractController
 {
     #[Route('/createNote/{id}', name: 'create_note')]
-    public function createNote(int $id, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
+    public function createNote(int $id, EntityManagerInterface $entityManager, ValidatorInterface $validator, ): Response
     {
         $usersRepo = $entityManager->getRepository(Users::class);
 
@@ -46,6 +46,40 @@ class NotesController extends AbstractController
         $entityManager->flush();
 
         return new Response('Saved new user with id '.$note->getId());
+    }
+
+    #[Route('/newNote', name: 'new_note')]
+    public function newNote(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $note = new Notes();
+        $note->setTitle("Nueva nota");
+        $note->setContent("El contenido de la nota nueva");
+        $note->setColor("#1F9BFD");
+
+        $note->setIdUser($this->getUser());
+        $note->setArchived(false);
+
+        $form = $this->createForm(NoteFormType::class, $note);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $newNote = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+            $entityManager->persist($note);
+
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('dashboard');
+        }
+        else if ($form->isSubmitted() && !$form->isValid()) {
+            return new Response('No valido');
+        }
+
+        return $this->render('notes/index.html.twig', ['form' => $form]);
     }
 
 }

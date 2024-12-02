@@ -9,10 +9,15 @@ const props = defineProps({
     type: String,
     required: false
   },
-  lastModified: {
+  reminderDate: {
     type: Date,
-    required: true
+    required: false
   },
+  color: {
+    type: String,
+    required: false,
+    default: "#1F9BFD"
+  }
 });
 
 //get the date from the prop, create a new date and get the values
@@ -24,7 +29,7 @@ var year = date.getFullYear();
 </script>
 
 <template>
-  <div class="card sn-blue-fade " data-tilt>
+  <div class="card sn-card-fade " data-tilt>
     <div class="card-content ">
       <p class="title text-white has-text-weight-semibold has-text-left">
        {{ title }}
@@ -48,6 +53,10 @@ var year = date.getFullYear();
 </template>
 
 <style scoped>
+
+.sn-card-fade {
+  background: v-bind(color);
+}
 
 .card-footer {
   min-height: 30vh;

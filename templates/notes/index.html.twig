@@ -9,12 +9,19 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div>
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>E:/Proyectos/SlipperyNotes/src/Controller/NotesController.php</code></li>
-        <li>Your template at <code>E:/Proyectos/SlipperyNotes/templates/notes/index.html.twig</code></li>
-    </ul>
+            {{  form_row(form.creationDate) }}
+            {{  form_row(form.lastModified) }}
+            {{  form_row(form.reminderDate) }}
+            {{  form_row(form.color) }}
+        <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
+            <span class="txt-sp is-size-4">Submit</span>
+        </button>
+        {{ form_end(form) }}
+    </div>
 </div>
 {% endblock %}

@@ -53,7 +53,7 @@
                                         </a>
                                         <ul id="notesOptions">
                                             <li style="user-select: none;">
-                                                <a href="{{ path('create_note', {'id' : user.getId}) }}">
+                                                <a href="{{ path('new_note') }}">
                                                     <span class="icon is-left">
                                                          {{ ux_icon('proicons:add-circular') }}
                                                     </span>
@@ -102,7 +102,7 @@
                                         </a>
                                         <ul id="userOptions">
                                             <li style="user-select: none;">
-                                                <a href="{{ path('create_note', {'id' : user.getId}) }}">
+                                                <a href="#">
                                                     <span class="icon is-left">
                                                          {{ ux_icon('icon-park-outline:config') }}
                                                     </span>
@@ -129,8 +129,11 @@
                     <!-- LISTAR NOTAS AQUI -->
                     <div class="column is-9-desktop is-8-tablet">
                         <div class="grid is-col-min-16">
+                            {%  if notes|length == 0 %}
+                                <p class="is-size-4 has-text-weight-medium has-text-grey-light">Seems like you haven't created any notes yet. <a href="{{ path('new_note') }}">Get started</a></p>
+                            {% endif %}
                             {%  for note in notes %}
-                                <div class="mx-5" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'lastModified': note.creationDate}) }}></div>
+                                <div class="mx-5" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'lastModified': note.creationDate, 'color': note.color}) }}></div>
                             {% endfor %}
                         </div>
                     </div>
