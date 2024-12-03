@@ -53,7 +53,6 @@ class NotesController extends AbstractController
     {
         $note = new Notes();
         $note->setTitle("Nueva nota");
-        $note->setContent("El contenido de la nota nueva");
         $note->setColor("#1F9BFD");
 
         $note->setIdUser($this->getUser());

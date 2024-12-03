@@ -24,14 +24,11 @@ class NoteFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('content', CKEditorType::class, array(
-                'config' => array(
+            ->add('content', CKEditorType::class, [
+                'config' => [
                     'uiColor' => '#ffffff',
-                    //...
-                ),
-            ))
-            ->add('content', TextType::class)
-
+                ]]
+            )
             ->add('creationDate', DateType::class, [
                 'widget' => 'single_text',
             ])
@@ -42,7 +39,6 @@ class NoteFormType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('color', ColorType::class)
-
         ;
     }
 
