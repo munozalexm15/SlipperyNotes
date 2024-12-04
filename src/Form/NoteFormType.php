@@ -29,13 +29,7 @@ class NoteFormType extends AbstractType
                     'uiColor' => '#ffffff',
                 ]]
             )
-            ->add('creationDate', DateType::class, [
-                'widget' => 'single_text',
-            ])
-            ->add('lastModified', DateTimeType::class, [
-                'widget' => 'single_text',
-            ])
-            ->add('reminderDate', DateType::class, [
+            ->add('reminderDate', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
             ->add('color', ColorType::class)

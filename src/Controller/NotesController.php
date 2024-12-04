@@ -18,42 +18,21 @@ use Symfony\Config\Framework\RequestConfig;
 
 class NotesController extends AbstractController
 {
-    #[Route('/createNote/{id}', name: 'create_note')]
-    public function createNote(int $id, EntityManagerInterface $entityManager, ValidatorInterface $validator, ): Response
-    {
-        $usersRepo = $entityManager->getRepository(Users::class);
-
-        $user = $usersRepo->find($id);
-
-        $note = new Notes();
-        $note->setTitle("Lista de la compra");
-        $note->setContent("Chuches, albondigas, una rtx 2060, una novia (que respire (opcional)), un poco de autoestima");
-        $note->setArchived(false);
-        $note->setCreationDate(new \DateTime());
-        $note->setIdUser($user);
-
-        
-        // check for errors in the fields using validator (auto_mapping)
-        $errors = $validator->validate($note);
-        if (count($errors) > 0) {
-            return new Response((string) $errors, 400);
-        }
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($note);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new user with id '.$note->getId());
-    }
-
     #[Route('/newNote', name: 'new_note')]
     public function newNote(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('homepage');
+        }
+        $user =  $entityManager -> getRepository(Users::class)->find($this->getUser()->getUserIdentifier());
+
         $note = new Notes();
         $note->setTitle("Nueva nota");
+        $note->setContent("");
         $note->setColor("#1F9BFD");
+        $note->setLastModified(new \DateTime());
+        $note->setCreationDate(new \DateTime());
+        $note->setReminderDate(new \DateTime());
 
         $note->setIdUser($this->getUser());
         $note->setArchived(false);
@@ -65,6 +44,37 @@ class NotesController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $newNote = $form->getData();
+            // ... perform some action, such as saving the task to the database
+            $entityManager->persist($note);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('dashboard');
+        }
+        else if ($form->isSubmitted() && !$form->isValid()) {
+            return new Response('No valido');
+        }
+
+        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user]);
+    }
+
+    #[Route('/editNote/{id}', name: 'edit_note')]
+    public function editNote(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('homepage');
+        }
+        $user =  $entityManager -> getRepository(Users::class)->find($this->getUser()->getUserIdentifier());
+
+        $note = $entityManager->getRepository(Notes::class)->find($id);
+
+        $form = $this->createForm(NoteFormType::class, $note);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $note->setLastModified(new \DateTime());
 
             // ... perform some action, such as saving the task to the database
             $entityManager->persist($note);
@@ -78,7 +88,9 @@ class NotesController extends AbstractController
             return new Response('No valido');
         }
 
-        return $this->render('notes/index.html.twig', ['form' => $form]);
+        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user]);
     }
+
+
 
 }

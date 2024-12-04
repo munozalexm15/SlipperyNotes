@@ -1,27 +1,79 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello NotesController!{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- ESTO EVITA QUE TURBO CARGUE PETICIONES ANTES DE HACER CLICK EN ENLACES -->
+    <meta name="turbo-prefetch" content="false">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('dashboardPage') }}
+    {% endblock %}
+</head>
+<body>
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
     <div>
-        {{ form_start(form) }}
-            {{ form_row(form.title) }}
-            {{ form_row(form.content) }}
+        <div class="main-content title container-center">
+            <div class="columns has-3-cols m-0">
+                <div class="column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet square-rounded-ng">
+                    <h1 class="title is-size-1-full-hd is-size-2-desktop is-size-2-widescreen text-white">YOUR NOTES</h1>
+                </div>
+                <div class="column is-2-fullhd is-2-widescreen is-2-desktop is-1-tablet"></div>
+            </div>
+            <hr class="p-0 m-0">
+            <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
 
-            {{  form_row(form.creationDate) }}
-            {{  form_row(form.lastModified) }}
-            {{  form_row(form.reminderDate) }}
-            {{  form_row(form.color) }}
-        <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
-            <span class="txt-sp is-size-4">Submit</span>
-        </button>
-        {{ form_end(form) }}
+                <!-- ASIDE -->
+                {{ component('AsideNav', {userId: user.id, username: user.username}) }}
+
+
+                <div class="column is-9-desktop is-8-tablet">
+                    <div class="grid is-col-min-16">
+                        <div>
+                            {{ form_start(form) }}
+
+                            <div class="field has-text-left my-5">
+                                <div class="control">
+                                    <input placeholder="MY AMAZING NOTE"
+                                           name="{{ field_name(form.title) }}"
+                                           value="{{ field_value(form.title) }}"
+                                           class="title-input is-size-1"
+                                           required>
+                                </div>
+                            </div>
+
+                            {{ form_widget(form.content) }}
+
+                            <div class="columns">
+                                <div class="column">
+                                    <input placeholder="" type="datetime-local"
+                                           name="{{ field_name(form.reminderDate) }}"
+                                           value="{{ field_value(form.reminderDate) }}"
+                                           class="is-size-1">
+                                </div>
+                                <div class="column">
+                                    {{  form_row(form.color) }}
+                                </div>
+                            </div>
+
+                            <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
+                                <span class="txt-sp is-size-4">Submit</span>
+                            </button>
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}
+</body>
+{% block javascripts %}
+    {{ encore_entry_script_tags('dashboardPage') }}
+{% endblock %}
+</html>
+

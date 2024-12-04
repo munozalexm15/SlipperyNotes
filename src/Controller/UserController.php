@@ -72,7 +72,13 @@ class UserController extends AbstractController
             $userID = $this->getUser()->getUserIdentifier();
         }
         $user =  $entityManager -> getRepository(Users::class)->find($userID);
-        $notes = $entityManager -> getRepository(Notes::class)->findBy(['idUser' => $user]);
+        $query = $entityManager ->createQuery(
+            'SELECT n from App\Entity\Notes n
+            WHERE n.idUser = :user
+            ORDER BY n.id'
+        )->setParameter('user', $user);
+
+        $notes = $query -> getResult();
         return $this->render(
             '/user/index.html.twig', ['user' => $user, 'notes' => $notes]);
     }

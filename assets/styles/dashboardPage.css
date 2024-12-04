@@ -1,3 +1,7 @@
+.no-select {
+    user-select: none;
+}
+
 .button {
     border-color: white;
     background: none;
@@ -8,11 +12,17 @@
     color: white;
 }
 
+
+
 .is-active {
     background-color: transparent !important;
     background-image: linear-gradient(to left, #1F9BFD, #1F73FE) !important;
     color: transparent;
     background-clip: text;
+}
+
+.sn-nav-in-front {
+    z-index: 100;
 }
 
 .sn-blue-fade {
@@ -51,4 +61,15 @@ button:hover {
     background-color: transparent;
     padding-left: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
     padding-right: calc(var(--bulma-button-padding-horizontal) + 0.25em - var(--bulma-button-border-width));
+}
+
+.title-input  {
+    border: none;
+    border-bottom: 2px solid #acacac;
+}
+.title-input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #0281e8;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }

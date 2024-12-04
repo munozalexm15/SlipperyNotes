@@ -1,0 +1,105 @@
+<div id="navbarParent" class="sn-nav-in-front column has-background-white is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet is-position-sticky" style="top: -1px">
+    <div class="sn-nav-in-front is-position-sticky mt-3 px-4" style="top: -1px;">
+
+        <section class="is-flex-mobile">
+            <a role="button" id="navbarHamburger" class="is-1-mobile is-0-tablet column mr-3 navbar-burger container-center is-fullwidth is-hidden-tablet" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+
+
+            <div class="field has-text-left is-fullwidth column is-12-tablet is-11-mobile">
+                <div class="control has-icons-left">
+                    <input type="text" placeholder="Search by tag:title:content" name="searchField" id="searchFieldInput" class="focusTransition form-control input" autocomplete="username" required>
+                    <span class="icon is-left is-small">
+                            {{ ux_icon('octicon:search-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
+                        </span>
+                </div>
+            </div>
+        </section>
+
+        <aside id="navbar" class="menu pt-3">
+
+            <ul class="menu-list txt-sp">
+                <li class="has-text-weight-medium is-size-4" style="user-select: none;">
+                    <a id="notes" class="is-active">
+                        <span class="icon is-left ">
+                            {{ ux_icon('proicons:note', {height: '32px', width: '32px', 'aria-hidden': true})}}
+                        </span>
+                        <span>Notes</span>
+                    </a>
+                    <ul id="notesOptions">
+                        <li style="user-select: none;">
+                            <a href="{{ path('new_note') }}">
+                                <span class="icon is-left">
+                                     {{ ux_icon('proicons:add-circular') }}
+                                </span>
+                                Create Note
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
+                    <a id="archived">
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:archive') }}
+                        </span>
+                        Archived
+                    </a>
+                </li>
+
+                <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
+                    <a id="reminder">
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:bell') }}
+                        </span>
+                        Reminders
+                    </a>
+                </li>
+
+                <li class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                    <a id="addTags">
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:add-circular') }}
+                        </span>
+                        Add Tags
+                    </a>
+                </li>
+
+                <hr>
+
+                <!-- PROFILE PART -->
+                <li class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                    <a id="user">
+                        <span class="icon is-left icon-sp">
+                            {{ ux_icon('proicons:person-2') }}
+                        </span>
+                        <span class="txt-sp">{{ this.username }}</span>
+                    </a>
+                    <ul id="userOptions" class="is-hidden">
+                        <li style="user-select: none;">
+                            <a href="#">
+                                <span class="icon is-left">
+                                     {{ ux_icon('icon-park-outline:config') }}
+                                </span>
+                                Configuration
+                            </a>
+                        </li>
+
+                        <li style="user-select: none;" class="is-danger">
+                            <a id="logOutOption" href="{{ path('app_logout', {'id' : this.userId}) }}">
+                                <span class="icon is-left">
+                                      {{ ux_icon('icon-park-outline:logout') }}
+                                </span>
+                                Log out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</div>
