@@ -1,8 +1,11 @@
+@import "bulma-calendar/dist/css/bulma-calendar.min.css";
+
+@import "bulma/css/bulma.min.css";
 .no-select {
     user-select: none;
 }
 
-.button {
+.button-sn {
     border-color: white;
     background: none;
     width: 100%;
@@ -11,8 +14,6 @@
 .text-white{
     color: white;
 }
-
-
 
 .is-active {
     background-color: transparent !important;

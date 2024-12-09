@@ -15,56 +15,58 @@
 {% block body %}
 
     <div>
-        <div class="main-content title container-center">
-            <div class="columns has-3-cols m-0">
-                <div class="column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet square-rounded-ng">
-                    <h1 class="title is-size-1-full-hd is-size-2-desktop is-size-2-widescreen text-white">YOUR NOTES</h1>
-                </div>
-                <div class="column is-2-fullhd is-2-widescreen is-2-desktop is-1-tablet"></div>
+        <div class="columns has-3-cols m-0">
+            <div class="column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet square-rounded-ng">
+                <h1 class="title is-size-1-full-hd is-size-2-desktop is-size-2-widescreen text-white">YOUR NOTES</h1>
             </div>
-            <hr class="p-0 m-0">
-            <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
+            <div class="column is-2-fullhd is-2-widescreen is-2-desktop is-1-tablet"></div>
+        </div>
+        <hr class="p-0 m-0">
+        <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
+            <!-- ASIDE -->
+            {{ component('AsideNav', {userId: user.id, username: user.username}) }}
 
-                <!-- ASIDE -->
-                {{ component('AsideNav', {userId: user.id, username: user.username}) }}
+            <div class="column is-9-desktop is-8-tablet">
+                <div>
+                    {{ form_start(form) }}
 
+                    <div class="field has-text-left my-5">
+                        <div class="control">
+                            <input placeholder="MY AMAZING NOTE"
+                                   name="{{ field_name(form.title) }}"
+                                   value="{{ field_value(form.title) }}"
+                                   class="title-input is-size-1"
+                                   required>
+                        </div>
+                    </div>
 
-                <div class="column is-9-desktop is-8-tablet">
-                    <div class="grid is-col-min-16">
-                        <div>
-                            {{ form_start(form) }}
-
-                            <div class="field has-text-left my-5">
-                                <div class="control">
-                                    <input placeholder="MY AMAZING NOTE"
-                                           name="{{ field_name(form.title) }}"
-                                           value="{{ field_value(form.title) }}"
-                                           class="title-input is-size-1"
-                                           required>
-                                </div>
-                            </div>
-
+                    <section class="columns">
+                        <!-- Text editor-->
+                        <div class="column is-5">
                             {{ form_widget(form.content) }}
-
-                            <div class="columns">
-                                <div class="column">
-                                    <input placeholder="" type="datetime-local"
-                                           name="{{ field_name(form.reminderDate) }}"
-                                           value="{{ field_value(form.reminderDate) }}"
-                                           class="is-size-1">
-                                </div>
-                                <div class="column">
-                                    {{  form_row(form.color) }}
-                                </div>
-                            </div>
-
-                            <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
-                                <span class="txt-sp is-size-4">Submit</span>
-                            </button>
-                            {{ form_end(form) }}
                         </div>
 
-                    </div>
+                        <!--REMINDER AND COLOR ASIDE-->
+                        <div class="column is-3 py-0 m-0">
+                            <div class="cell">
+                                <input type="date"
+                                       name="{{ field_name(form.reminderDate) }}"
+                                       value="{{ field_value(form.reminderDate) }}">
+                            </div>
+                        </div>
+
+                        <div class="column is-3">
+                            <div class="cell">
+                                {{  form_row(form.color) }}
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
+                        <span class="txt-sp is-size-4">Submit</span>
+                    </button>
+                    {{ form_end(form) }}
                 </div>
 
             </div>

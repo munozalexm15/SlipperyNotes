@@ -5,8 +5,12 @@ import '../styles/dashboardPage.css';
 import logoPath from '../images/Logo-noJoin.png';
 import VanillaTilt from "vanilla-tilt";
 import tinycolor from "tinycolor2";
+import bulmaCalendar from 'bulma-calendar/dist/js/bulma-calendar.min';
+import 'bulma-calendar/dist/css/bulma-calendar.min.css'
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
+
+
 
 registerVueControllerComponents(require.context('../vue/controllers', true, /\.vue$/));
 
@@ -24,6 +28,55 @@ let isUserMenuClosed = false;
 
 let navbarToggler = document.getElementById('navbarHamburger');
 let navbar = document.getElementById('navbar');
+
+var defaultOptions = {
+    color: 'primary',
+    isRange: false,
+    allowSameDayRange: true,
+    lang: 'en-US',
+    endDate: undefined,
+    maxDate: null,
+    disabledDates: [],
+    disabledWeekDays: undefined,
+    highlightedDates: [],
+    dateFormat: 'yyyy-MM-dd',
+    timeFormat: 'HH:mm:ss',
+    enableMonthSwitch: true,
+    enableYearSwitch: true,
+    displayYearsCount: 50,
+    displayMode: 'inline',
+    type: 'datetime',
+    validateLabel: 'Set reminder',
+    showTodayButton: false,
+    minDate: new Date(),
+    startDate: new Date(),
+    weekStart: 1,
+    showButtons: false,
+
+};
+
+// Initialize all input of date type.
+const calendars = bulmaCalendar.attach('[type="date"]', defaultOptions);
+
+
+
+// Loop on each calendar initialized
+calendars.forEach(calendar => {
+    // Add listener to select event
+    calendar.on('select', date => {
+        console.log(date);
+    });
+});
+
+// To access to bulmaCalendar instance of an element
+const element = document.querySelector('#my-element');
+if (element) {
+    // bulmaCalendar instance is available as element.bulmaCalendar
+    element.bulmaCalendar.on('select', datepicker => {
+        console.log(datepicker.data.value());
+    });
+}
+
 
 navbarToggler.addEventListener('click', e => {
     navbar.classList.toggle('is-hidden');
