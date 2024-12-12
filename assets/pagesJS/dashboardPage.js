@@ -7,27 +7,36 @@ import VanillaTilt from "vanilla-tilt";
 import tinycolor from "tinycolor2";
 import bulmaCalendar from 'bulma-calendar/dist/js/bulma-calendar.min';
 import 'bulma-calendar/dist/css/bulma-calendar.min.css'
+import * as yesterday from "date-fns";
+import i from "../vendor/typed.js/typed.js.index";
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
 
-
-
 registerVueControllerComponents(require.context('../vue/controllers', true, /\.vue$/));
 
-let notesRef = document.getElementById('notes');
-let archivedRef = document.getElementById('archived');
-let reminderRef = document.getElementById('reminder');
-let addTagsRef = document.getElementById('addTags');
-let lastRef = notesRef
-
+let controller = new AbortController();
+const { signal } = controller;
 
 let userRef = document.getElementById('user');
 let userOptionsRef = document.getElementById('userOptions');
 let logOutOption = document.getElementById('logOutOption');
 let isUserMenuClosed = false;
 
+let notesAddTagRef = document.getElementById('notesAdd-tag');
+let notesArchiveRef = document.getElementById('notesAdd-archived');
+let notesDeleteRef = document.getElementById('notesRemove-note');
+
+let archiveAddTagRef = document.getElementById('archiveAdd-tag');
+let archiveArchiveRef = document.getElementById('archiveRemove-archived');
+let archiveDeleteRef = document.getElementById('archiveDelete-note');
+
 let navbarToggler = document.getElementById('navbarHamburger');
 let navbar = document.getElementById('navbar');
+
+let yesterdayDate = new Date();
+yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+
+let selectedNotes = [];
 
 var defaultOptions = {
     color: 'primary',
@@ -36,7 +45,7 @@ var defaultOptions = {
     lang: 'en-US',
     endDate: undefined,
     maxDate: null,
-    disabledDates: [],
+    disabledDates: [yesterdayDate],
     disabledWeekDays: undefined,
     highlightedDates: [],
     dateFormat: 'yyyy-MM-dd',
@@ -44,38 +53,29 @@ var defaultOptions = {
     enableMonthSwitch: true,
     enableYearSwitch: true,
     displayYearsCount: 50,
-    displayMode: 'inline',
+    displayMode: 'dialog',
     type: 'datetime',
     validateLabel: 'Set reminder',
     showTodayButton: false,
-    minDate: new Date(),
+    minDate: yesterdayDate,
     startDate: new Date(),
     weekStart: 1,
     showButtons: false,
 
 };
 
-// Initialize all input of date type.
 const calendars = bulmaCalendar.attach('[type="date"]', defaultOptions);
 
 
+//DASHBOARD PART
+const notes = document.getElementsByClassName('note');
 
-// Loop on each calendar initialized
-calendars.forEach(calendar => {
-    // Add listener to select event
-    calendar.on('select', date => {
-        console.log(date);
-    });
-});
+document.addEventListener('DOMContentLoaded', () => {
+    for (let i = 0; i < notes.length; i++) {
+        clickAndHold(notes[i]);
+    }
+})
 
-// To access to bulmaCalendar instance of an element
-const element = document.querySelector('#my-element');
-if (element) {
-    // bulmaCalendar instance is available as element.bulmaCalendar
-    element.bulmaCalendar.on('select', datepicker => {
-        console.log(datepicker.data.value());
-    });
-}
 
 
 navbarToggler.addEventListener('click', e => {
@@ -85,7 +85,6 @@ navbarToggler.addEventListener('click', e => {
 
 //EVENT LISTENER FOR RESIZING TO SHOW (OR NOT) NAVBAR
 window.addEventListener('resize', () => {
-    console.log(navbarToggler.style.width);
     if (window.getComputedStyle(navbarToggler).getPropertyValue('display') === 'none') {
         navbar.classList.remove('is-hidden');
     }
@@ -94,42 +93,7 @@ window.addEventListener('resize', () => {
 
             navbar.classList.add('is-hidden');
         }
-
     }
-})
-
-//NOTES, ARCHIVED, REMINDERS AND ADD TAGS PART OF NAVBAR
-
-notesRef.addEventListener('click', e => {
-    if (lastRef !== notesRef) {
-        notesRef.classList.toggle('is-active');
-        lastRef.classList.remove('is-active');
-    }
-    lastRef = notesRef;
-})
-
-archivedRef.addEventListener('click', e => {
-    if (lastRef !== archivedRef) {
-        archivedRef.classList.toggle('is-active');
-        lastRef.classList.remove('is-active');
-    }
-    lastRef = archivedRef;
-})
-
-reminderRef.addEventListener('click', e => {
-    if (lastRef !== reminderRef) {
-        reminderRef.classList.toggle('is-active');
-        lastRef.classList.remove('is-active');
-    }
-    lastRef = reminderRef;
-})
-
-addTagsRef.addEventListener('click', e => {
-    if (lastRef !== addTagsRef) {
-        addTagsRef.classList.toggle('is-active');
-        lastRef.classList.remove('is-active');
-    }
-    lastRef = addTagsRef;
 })
 
 //USER PART OF NAVBAR
@@ -147,4 +111,75 @@ logOutOption.addEventListener('mouseout', (e) => {
     logOutOption.classList.toggle('has-text-white');
 })
 
+const clickAndHold = (btnEl) => {
+    let timerId;
+    const DURATION = 200;
 
+    //Prevents to redirect when clicking the note if there are notes selected
+    //Allows to click after all the notes have been unselected
+    const preventListening = function (e) {
+        e.preventDefault();
+        if (selectedNotes.length > 0) {
+            return;
+        }
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].removeEventListener('click', preventListening);
+        }
+        e.stopPropagation();
+        console.log("eo")
+
+    }
+
+    //Visual feedback to know note is selected
+    //Adding / removing notes from the selectedNotes array
+    const onMouseDown = () => {
+        timerId = setTimeout(() => {
+            if (!btnEl.classList.contains('box')) {
+                selectedNotes.push(btnEl.id);
+                btnEl.classList.add('box');
+            }
+            else {
+                btnEl.classList.remove('box');
+                let indexOfCard = selectedNotes.indexOf(btnEl.id);
+                if (indexOfCard > -1) {
+                    selectedNotes.splice(indexOfCard, 1);
+                }
+            }
+            console.log(selectedNotes);
+        }, DURATION);
+    };
+
+    //Showing / removing the navbar options to delete, add tag or archive notes.
+    const clearTimer = () => {
+        timerId && clearInterval(timerId);
+
+        if (selectedNotes.length > 0) {
+            notesAddTagRef.classList.remove('is-hidden');
+            notesDeleteRef.classList.remove('is-hidden');
+            notesArchiveRef.classList.remove('is-hidden');
+            for (let i = 0; i < notes.length; i++) {
+                notes[i].addEventListener('click', preventListening);
+            }
+        }
+        else {
+            notesAddTagRef.classList.add('is-hidden');
+            notesDeleteRef.classList.add('is-hidden');
+            notesArchiveRef.classList.add('is-hidden')
+        }
+    };
+
+    //handle when mouse is clicked
+    btnEl.addEventListener("mousedown", onMouseDown);
+    //handle when mouse is raised
+    btnEl.addEventListener("mouseup", clearTimer);
+    //handle mouse leaving the clicked button
+    btnEl.addEventListener("mouseout", clearTimer);
+
+    // a callback function to remove listeners useful in libs like react
+    // when component or element is unmounted
+    return () => {
+        btnEl.removeEventListener("mousedown", onMouseDown);
+        btnEl.removeEventListener("mouseup", clearTimer);
+        btnEl.removeEventListener("mouseout", clearTimer);
+    };
+};

@@ -40,7 +40,7 @@
                             {% endif %}
                             {%  for note in notes %}
                                 <div class="mx-5">
-                                    <a href="{{ path('edit_note', {'id' : note.id}) }}">
+                                    <a id="{{ note.id }}" class="note" href="{{ path('edit_note', {'id' : note.id}) }}">
 
                                         {%  if note.reminderDate %}
                                             <div data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'reminderDate': note.reminderDate, 'color': note.color}) }}></div>

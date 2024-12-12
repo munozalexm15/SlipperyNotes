@@ -26,49 +26,47 @@
             <!-- ASIDE -->
             {{ component('AsideNav', {userId: user.id, username: user.username}) }}
 
-            <div class="column is-9-desktop is-8-tablet">
-                <div>
+            <div class="column is-9-desktop is-8-tablet py-0">
+                <div class="mx-5">
                     {{ form_start(form) }}
 
-                    <div class="field has-text-left my-5">
-                        <div class="control">
-                            <input placeholder="MY AMAZING NOTE"
-                                   name="{{ field_name(form.title) }}"
-                                   value="{{ field_value(form.title) }}"
-                                   class="title-input is-size-1"
-                                   required>
-                        </div>
-                    </div>
 
-                    <section class="columns">
-                        <!-- Text editor-->
-                        <div class="column is-5">
-                            {{ form_widget(form.content) }}
+                        <div class="cell">
+                            <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
+                                <span class="txt-sp is-size-4">Submit</span>
+                            </button>
                         </div>
-
-                        <!--REMINDER AND COLOR ASIDE-->
-                        <div class="column is-3 py-0 m-0">
-                            <div class="cell">
-                                <input type="date"
-                                       name="{{ field_name(form.reminderDate) }}"
-                                       value="{{ field_value(form.reminderDate) }}">
-                            </div>
+                    <section class="grid">
+                        <div class="cell is-flex  is-justify-content-flex-start is-flex-grow-4">
+                            <input type="date"
+                                   name="{{ field_name(form.reminderDate) }}"
+                                   value="{{ field_value(form.reminderDate) }}">
                         </div>
-
-                        <div class="column is-3">
-                            <div class="cell">
-                                {{  form_row(form.color) }}
-                            </div>
-                        </div>
+                        <div class="cell is-flex is-flex-wrap-wrap is-justify-content-flex-end">{{  form_row(form.color) }}</div>
                     </section>
 
+                    <div class="card sn-blue-fade m-0">
+                        <div class="card-content is-fullwidth">
+                            <div class="is-flex">
+                                <input placeholder="MY AMAZING NOTE"
+                                       name="{{ field_name(form.title) }}"
+                                       value="{{ field_value(form.title) }}"
+                                       class="title-input is-size-1 is-fullwidth"
+                                       required>
+                            </div>
+                        </div>
+                        <footer class="card-footer mx-5 mb-5 pb-2 is-fullheight">
+                            <div class="is-size-5 has-text-weight-medium is-fullheight" style="width: 100%">
+                                <div class="sn-card-color-text card-footer-container my-5">
+                                    {{ form_widget(form.content) }}
+                                </div>
+                            </div>
 
-                    <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
-                        <span class="txt-sp is-size-4">Submit</span>
-                    </button>
+                        </footer>
+                    </div>
+
                     {{ form_end(form) }}
                 </div>
-
             </div>
         </div>
     </div>

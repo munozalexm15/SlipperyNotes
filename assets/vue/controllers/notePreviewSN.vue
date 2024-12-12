@@ -60,7 +60,7 @@ if (props.reminderDate !== undefined) {
 </script>
 
 <template>
-  <div class="card sn-card-fade" data-tilt>
+  <div id="notePreview" class="card sn-card-fade">
     <div class="card-content ">
       <div class="title sn-card-color-text has-text-weight-semibold has-text-left">
         <p>{{ title }}</p>

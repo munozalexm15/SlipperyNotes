@@ -1,4 +1,4 @@
-<div id="navbarParent" class="sn-nav-in-front column has-background-white is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet is-position-sticky" style="top: -1px">
+<div id="navbarParent" class="sn-nav-in-front column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet is-position-sticky" style="top: -1px; z-index: 1; background-color: white">
     <div class="sn-nav-in-front is-position-sticky mt-3 px-4" style="top: -1px;">
 
         <section class="is-flex-mobile">
@@ -24,12 +24,14 @@
 
             <ul class="menu-list txt-sp">
                 <li class="has-text-weight-medium is-size-4" style="user-select: none;">
-                    <a id="notes" class="is-active">
+                    <a id="notes" class="{{ app.request.get('_route') == 'dashboard' ? 'is-active-sn' : 'none' }}">
                         <span class="icon is-left ">
                             {{ ux_icon('proicons:note', {height: '32px', width: '32px', 'aria-hidden': true})}}
                         </span>
                         <span>Notes</span>
                     </a>
+
+                    {% if app.request.get('_route') != 'archived' %}
                     <ul id="notesOptions">
                         <li style="user-select: none;">
                             <a href="{{ path('new_note') }}">
@@ -39,16 +41,84 @@
                                 Create Note
                             </a>
                         </li>
+
+                        <li id="notesAdd-tag" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:tag') }}
+                        </span>
+                                Add Tags
+                            </a>
+                        </li>
+
+                        <li id="notesAdd-archived" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:archive-add-2') }}
+                        </span>
+                                Move to archived
+                            </a>
+                        </li>
+
+                        <li id="notesRemove-note" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:delete') }}
+                        </span>
+                                Delete
+                            </a>
+                        </li>
                     </ul>
+                    {% endif %}
                 </li>
 
                 <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
-                    <a id="archived">
+                    <a id="archived" class="{{ app.request.get('_route') == 'archived' ? 'is-active-sn' : 'none' }}">
                         <span class="icon is-left">
                             {{ ux_icon('proicons:archive') }}
                         </span>
                         Archived
                     </a>
+
+                    {% if app.request.get('_route') == 'archived' %}
+                    <ul id="archivedOptions">
+                        <li style="user-select: none;">
+                            <a href="{{ path('new_note') }}">
+                                <span class="icon is-left">
+                                     {{ ux_icon('proicons:add-circular') }}
+                                </span>
+                                Create Archived Note
+                            </a>
+                        </li>
+
+                        <li id="archiveAdd-tag" class=" is-size-4 has-text-weight-medium" style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:tag') }}
+                        </span>
+                                Add Tags
+                            </a>
+                        </li>
+
+                        <li id="archiveRemove-archived" class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:checkbox-indeterminate') }}
+                        </span>
+                                Remove from archived
+                            </a>
+                        </li>
+
+                        <li id="archiveDelete-note" class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                            <a>
+                        <span class="icon is-left">
+                            {{ ux_icon('proicons:delete') }}
+                        </span>
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                    {% endif %}
                 </li>
 
                 <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
@@ -57,15 +127,6 @@
                             {{ ux_icon('proicons:bell') }}
                         </span>
                         Reminders
-                    </a>
-                </li>
-
-                <li class=" is-size-4 has-text-weight-medium " style="user-select: none;">
-                    <a id="addTags">
-                        <span class="icon is-left">
-                            {{ ux_icon('proicons:add-circular') }}
-                        </span>
-                        Add Tags
                     </a>
                 </li>
 
