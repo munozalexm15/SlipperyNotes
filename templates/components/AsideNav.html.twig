@@ -24,7 +24,7 @@
 
             <ul class="menu-list txt-sp">
                 <li class="has-text-weight-medium is-size-4" style="user-select: none;">
-                    <a id="notes" class="{{ app.request.get('_route') == 'dashboard' ? 'is-active-sn' : 'none' }}">
+                    <a id="notes" class="{{ app.request.get('_route') == 'dashboard' ? 'is-active-sn' : 'none' }}" href="{{ app.request.get('_route') == 'dashboard' ? '#' : path('dashboard') }}">
                         <span class="icon is-left ">
                             {{ ux_icon('proicons:note', {height: '32px', width: '32px', 'aria-hidden': true})}}
                         </span>
@@ -44,27 +44,27 @@
 
                         <li id="notesAdd-tag" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
-                        <span class="icon is-left">
-                            {{ ux_icon('proicons:tag') }}
-                        </span>
+                                <span class="icon is-left">
+                                    {{ ux_icon('proicons:tag') }}
+                                </span>
                                 Add Tags
                             </a>
                         </li>
 
                         <li id="notesAdd-archived" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
-                        <span class="icon is-left">
-                            {{ ux_icon('proicons:archive-add-2') }}
-                        </span>
+                                <span class="icon is-left">
+                                    {{ ux_icon('proicons:archive-add-2') }}
+                                </span>
                                 Move to archived
                             </a>
                         </li>
 
                         <li id="notesRemove-note" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
-                        <span class="icon is-left">
-                            {{ ux_icon('proicons:delete') }}
-                        </span>
+                                <span class="icon is-left">
+                                    {{ ux_icon('proicons:delete') }}
+                                </span>
                                 Delete
                             </a>
                         </li>
@@ -73,7 +73,7 @@
                 </li>
 
                 <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
-                    <a id="archived" class="{{ app.request.get('_route') == 'archived' ? 'is-active-sn' : 'none' }}">
+                    <a id="archived" class="{{ app.request.get('_route') == 'archived' ? 'is-active-sn' : 'none' }}" href="{{ app.request.get('_route') == 'archived' ? '#' : path('archived') }}">
                         <span class="icon is-left">
                             {{ ux_icon('proicons:archive') }}
                         </span>
@@ -163,4 +163,12 @@
             </ul>
         </aside>
     </div>
+
+    <section>
+        {{ component('modalSN', {message: "Are you sure you want to archive these notes?", hasInputField: false}) }}
+    </section>
+
+
+
+
 </div>

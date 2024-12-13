@@ -1,18 +1,16 @@
 # SlipperyNotes
 
-Project made with the main idea to create a sticky notes web app, with technologies that I do not know (to learn more technologies).
-
+Project made with the idea of learning Symfony and a few more things along the way. Uses some deprecated things and is not meant to be used or replicated in real use (see more down below).
 
 # Tech Stack
 
  - DATABASE: PostgreSQL
- - BACK-END: [Symfony](https://symfony.com/)
+ - BACK-END: [Symfony](https://symfony.com/) / PHP
  - FRONT-END: [Twig](https://twig.symfony.com/) / [Vue](https://vuejs.org/) / [Symfony UX](https://ux.symfony.com/)
  - CSS FRAMEWORK: [Bulma](https://bulma.io/)
 
-The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
 
-# Proyect Status
+# Project Status
 
 At the moment I'm still working on it, so don't expect to see a fully working app. This is the complete list of features:
 
@@ -20,12 +18,18 @@ At the moment I'm still working on it, so don't expect to see a fully working ap
  - [X] Homepage
  - [X] Login and register formularies (With user token, password encryption, etc.)
  - [X] User page (Where he can search, create, delete notes) -> WIP
- - [ ] Notes creation / edit page-> WIP
+ - [X] Notes creation / edit page-> WIP
  - [ ] Erase notes
  - [ ] Archive notes
  - [ ] Add tags (And allow users to set tags to notes)
  - [ ] Add reminders to the notes and notify users when it's time
- - [ ] Allow to append photos to the notes
- - [ ] Configure user data (Add profile picture, add name and surnames, etc.)
+ - [?] Allow to append photos to the notes
+ - [?] Configure user data (Add profile picture, add name and surnames, etc.)
  - [ ] Erase account
 
+#WARNING
+
+The project uses FOSCKEditorBundle, which supports CKEDITOR4.
+ 
+CKEditor4 reached its End-of-Life in 2023 and the version the app is using is the 1.16.2 one. This means a lot of security risks exists and are not taken into account because this proyect's purpose 
+is for learning and it's not meant to be used in real development environment.

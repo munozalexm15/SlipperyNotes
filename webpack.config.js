@@ -52,6 +52,10 @@ Encore
 
     .addEntry('dashboardPage', './assets/pagesJS/dashboardPage.js')
 
+    .addEntry('archivedPage', './assets/pagesJS/archivedPage.js')
+
+    .addEntry('createNotePage', './assets/pagesJS/createNotePage.js')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -76,6 +80,7 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
+    .enableVersioning()
 
     // configure Babel
     // .configureBabel((config) => {

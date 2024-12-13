@@ -74,16 +74,37 @@ class UserController extends AbstractController
         $user =  $entityManager -> getRepository(Users::class)->find($userID);
         $query = $entityManager ->createQuery(
             'SELECT n from App\Entity\Notes n
-            WHERE n.idUser = :user
+            WHERE n.idUser = :user AND n.isArchived = false
             ORDER BY n.id'
         )->setParameter('user', $user);
 
         $notes = $query -> getResult();
         return $this->render(
-            '/user/index.html.twig', ['user' => $user, 'notes' => $notes]);
+            '/user/index.html.twig', ['user' => $user, 'notes' => $notes, 'section' => 'dashboard']);
     }
 
+    #[Route('/archived', name: 'archived')]
+    public function archived(EntityManagerInterface $entityManager) : Response
+    {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('homepage');
+        }
 
+        $userID = null;
+        if ($this->getUser()) {
+            $userID = $this->getUser()->getUserIdentifier();
+        }
+        $user =  $entityManager -> getRepository(Users::class)->find($userID);
+        $query = $entityManager ->createQuery(
+            'SELECT n from App\Entity\Notes n
+            WHERE n.idUser = :user AND n.isArchived = true
+            ORDER BY n.id'
+        )->setParameter('user', $user);
+
+        $notes = $query -> getResult();
+        return $this->render(
+            '/user/index.html.twig', ['user' => $user, 'notes' => $notes, 'section' => 'archived']);
+    }
 
 
 }

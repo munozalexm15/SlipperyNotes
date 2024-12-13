@@ -54,7 +54,7 @@ class NotesController extends AbstractController
             return new Response('No valido');
         }
 
-        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user]);
+        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user, 'section' => null]);
     }
 
     #[Route('/editNote/{id}', name: 'edit_note')]
@@ -88,7 +88,23 @@ class NotesController extends AbstractController
             return new Response('No valido');
         }
 
-        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user]);
+        return $this->render('notes/index.html.twig', ['form' => $form, 'user' => $user, 'section' => null]);
+    }
+
+    #[Route('/archiveNotes', name: 'archive_notes')]
+    public function archiveNotes(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $params = json_decode($request->getContent(), true);
+        foreach ($params["selectedNotes"] as $noteId) {
+           $note = $entityManager->getRepository(Notes::class)->find($noteId);
+           $note->setArchived(true);
+           $entityManager->persist($note);
+        }
+
+        $entityManager->flush();
+
+
+        return new Response('success');
     }
 
 

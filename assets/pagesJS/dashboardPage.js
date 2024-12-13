@@ -22,19 +22,33 @@ let userOptionsRef = document.getElementById('userOptions');
 let logOutOption = document.getElementById('logOutOption');
 let isUserMenuClosed = false;
 
-let notesAddTagRef = document.getElementById('notesAdd-tag');
-let notesArchiveRef = document.getElementById('notesAdd-archived');
-let notesDeleteRef = document.getElementById('notesRemove-note');
+let notesAddTagRef = null
+let notesArchiveRef = null
+let notesDeleteRef = null
 
-let archiveAddTagRef = document.getElementById('archiveAdd-tag');
-let archiveArchiveRef = document.getElementById('archiveRemove-archived');
-let archiveDeleteRef = document.getElementById('archiveDelete-note');
+const parentDiv = document.getElementById('parent');
+const sectionRef = parentDiv.getAttribute('data-section')
+
+if (sectionRef === "dashboard") {
+    notesAddTagRef = document.getElementById('notesAdd-tag');
+    notesArchiveRef = document.getElementById('notesAdd-archived');
+    notesDeleteRef = document.getElementById('notesRemove-note');
+}
+
+else if (sectionRef !== "dashboard") {
+    notesAddTagRef = document.getElementById('archiveAdd-tag');
+    notesArchiveRef = document.getElementById('archiveRemove-archived');
+    notesDeleteRef = document.getElementById('archiveDelete-note');
+}
 
 let navbarToggler = document.getElementById('navbarHamburger');
 let navbar = document.getElementById('navbar');
 
 let yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+
+let acceptModalButton = document.getElementById('acceptModal');
+
 
 let selectedNotes = [];
 
@@ -126,7 +140,6 @@ const clickAndHold = (btnEl) => {
             notes[i].removeEventListener('click', preventListening);
         }
         e.stopPropagation();
-        console.log("eo")
 
     }
 
@@ -135,7 +148,7 @@ const clickAndHold = (btnEl) => {
     const onMouseDown = () => {
         timerId = setTimeout(() => {
             if (!btnEl.classList.contains('box')) {
-                selectedNotes.push(btnEl.id);
+                selectedNotes.push(btnEl.id)
                 btnEl.classList.add('box');
             }
             else {
@@ -145,7 +158,6 @@ const clickAndHold = (btnEl) => {
                     selectedNotes.splice(indexOfCard, 1);
                 }
             }
-            console.log(selectedNotes);
         }, DURATION);
     };
 
@@ -183,3 +195,39 @@ const clickAndHold = (btnEl) => {
         btnEl.removeEventListener("mouseout", clearTimer);
     };
 };
+
+
+//MODAL LOGIC
+let modal = document.getElementById('archiveModal');
+
+notesArchiveRef.children[0].addEventListener('click', (e) => {
+    modal.classList.add('is-active');
+
+})
+
+let closeModalButton = document.getElementById('closeModal');
+closeModalButton.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+})
+
+acceptModalButton.addEventListener('click', async e => {
+    acceptModalButton.classList.toggle('is-loading');
+    const response = await fetch('http://localhost:8000/archiveNotes', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            selectedNotes
+        })
+    });
+    const responseJSON = await response;
+    if (responseJSON.ok) {
+        location.reload();
+    }
+    acceptModalButton.classList.toggle('is-loading');
+
+    modal.classList.remove('is-active');
+
+})

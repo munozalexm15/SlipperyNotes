@@ -1,0 +1,23 @@
+<div id="archiveModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+        </header>
+        {% if this.message %}
+        <section class="modal-card-body">
+            {{ this.message }}
+        </section>
+        {% endif %}
+
+        {%if this.hasInputField %}
+        <input class="modal-input" type="text">
+        {% endif %}
+        <footer class="modal-card-foot">
+            <div class="buttons">
+                <button id="acceptModal" class="button is-success">Save changes</button>
+                <button id="closeModal" class="button">Cancel</button>
+            </div>
+        </footer>
+    </div>
+</div>
