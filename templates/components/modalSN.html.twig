@@ -1,4 +1,4 @@
-<div id="archiveModal" class="modal">
+<div id="{{ this.id }}" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
@@ -15,8 +15,8 @@
         {% endif %}
         <footer class="modal-card-foot">
             <div class="buttons">
-                <button id="acceptModal" class="button is-success">Save changes</button>
-                <button id="closeModal" class="button">Cancel</button>
+                <button id="acceptModal {{ this.id }}" class="button is-success">Save changes</button>
+                <button id="closeModal {{ this.id }}" class="button">Cancel</button>
             </div>
         </footer>
     </div>

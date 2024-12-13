@@ -8,5 +8,5 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class modalSN {
     public bool $hasInputField;
     public string $message;
-
+    public string $id;
 }

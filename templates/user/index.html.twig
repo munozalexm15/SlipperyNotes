@@ -12,6 +12,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('dashboardPage') }}
+            {{ encore_entry_script_tags('navbarPage') }}
         {% endblock %}
     </head>
     <body class="no-select">
@@ -43,10 +44,10 @@
                                     <a id="{{ note.id }}" class="note" href="{{ path('edit_note', {'id' : note.id}) }}">
 
                                         {%  if note.reminderDate %}
-                                            <div data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'reminderDate': note.reminderDate, 'color': note.color}) }}></div>
+                                            <div class="tilt" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'reminderDate': note.reminderDate, 'color': note.color}) }}></div>
 
                                         {% else %}
-                                            <div data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'color': note.color}) }}></div>
+                                            <div class="tilt" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'color': note.color}) }}></div>
                                         {% endif %}
                                     </a>
                                 </div>
@@ -57,6 +58,13 @@
                 </div>
             </div>
         </div>
+        <section>
+            {{ component('modalSN', {message: "Are you sure you want to ARCHIVE these notes?", hasInputField: false, id : "archive-modal"}) }}
+        </section>
+        <section>
+            {{ component('modalSN', {message: "Are you sure you want to DELETE these notes?", hasInputField: false, id : "delete-modal"}) }}
+        </section>
+
     {% endblock %}
     </body>
 </html>

@@ -32,7 +32,7 @@
                     </a>
 
                     {% if app.request.get('_route') != 'archived' %}
-                    <ul id="notesOptions">
+                    <ul data-controller="notesOptions" id="notesOptions">
                         <li style="user-select: none;">
                             <a href="{{ path('new_note') }}">
                                 <span class="icon is-left">
@@ -81,7 +81,7 @@
                     </a>
 
                     {% if app.request.get('_route') == 'archived' %}
-                    <ul id="archivedOptions">
+                    <ul data-controller="archivedOptions" id="archivedOptions">
                         <li style="user-select: none;">
                             <a href="{{ path('new_note') }}">
                                 <span class="icon is-left">
@@ -163,12 +163,4 @@
             </ul>
         </aside>
     </div>
-
-    <section>
-        {{ component('modalSN', {message: "Are you sure you want to archive these notes?", hasInputField: false}) }}
-    </section>
-
-
-
-
 </div>

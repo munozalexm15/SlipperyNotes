@@ -103,7 +103,7 @@ class UserController extends AbstractController
 
         $notes = $query -> getResult();
         return $this->render(
-            '/user/index.html.twig', ['user' => $user, 'notes' => $notes, 'section' => 'archived']);
+            '/user/archived.html.twig', ['user' => $user, 'notes' => $notes, 'section' => 'archived']);
     }
 
 

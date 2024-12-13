@@ -107,6 +107,22 @@ class NotesController extends AbstractController
         return new Response('success');
     }
 
+    #[Route('/deleteNotes', name: 'delete_notes')]
+    public function deleteNotes(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $params = json_decode($request->getContent(), true);
+        foreach ($params["selectedNotes"] as $noteId) {
+            $note = $entityManager->getRepository(Notes::class)->find($noteId);
+            $note->setArchived(true);
+            $entityManager->remove($note);
+        }
+
+        $entityManager->flush();
+
+
+        return new Response('success');
+    }
+
 
 
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- ESTO EVITA QUE TURBO CARGUE PETICIONES ANTES DE HACER CLICK EN ENLACES -->
+    <meta name="turbo-prefetch" content="false">
+    <title>{% block title %}Your Notes{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('dashboardPage') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('archivedPage') }}
+        {{ encore_entry_script_tags('navbarPage') }}
+    {% endblock %}
+</head>
+<body class="no-select">
+
+{% block body %}
+
+    <div id="parent" data-section="{{ section }}">
+        <div class="main-content title container-center">
+            <div class="columns has-3-cols m-0">
+                <div class="column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet square-rounded-ng">
+                    <h1 class="title is-size-1-full-hd is-size-2-desktop is-size-2-widescreen text-white">YOUR NOTES</h1>
+                </div>
+                <div class="column is-2-fullhd is-2-widescreen is-2-desktop is-1-tablet"></div>
+            </div>
+            <hr class="p-0 m-0">
+            <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
+
+                <!-- ASIDE -->
+                {{ component('AsideNav', {userId: user.id, username: user.username}) }}
+
+                <!-- LISTAR NOTAS AQUI -->
+                <div class="column is-9-desktop is-8-tablet ">
+                    <div class="grid is-col-min-12">
+                        {%  if notes|length == 0 %}
+                            <p class="is-size-4 has-text-weight-medium has-text-grey-light">Seems like you haven't created any notes yet. <a href="{{ path('new_note') }}">Get started</a></p>
+                        {% endif %}
+                        {%  for note in notes %}
+                            <div class="mx-5">
+                                <a id="{{ note.id }}" class="note" href="{{ path('edit_note', {'id' : note.id}) }}">
+
+                                    {%  if note.reminderDate %}
+                                        <div class="tilt" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'reminderDate': note.reminderDate, 'color': note.color}) }}></div>
+
+                                    {% else %}
+                                        <div class="tilt" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'color': note.color}) }}></div>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
+

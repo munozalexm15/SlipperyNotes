@@ -17,10 +17,10 @@ registerVueControllerComponents(require.context('../vue/controllers', true, /\.v
 let controller = new AbortController();
 const { signal } = controller;
 
-let userRef = document.getElementById('user');
-let userOptionsRef = document.getElementById('userOptions');
-let logOutOption = document.getElementById('logOutOption');
-let isUserMenuClosed = false;
+let yesterdayDate = new Date();
+yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+
+let acceptModalButton = document.getElementById('acceptModal');
 
 let notesAddTagRef = null
 let notesArchiveRef = null
@@ -28,6 +28,7 @@ let notesDeleteRef = null
 
 const parentDiv = document.getElementById('parent');
 const sectionRef = parentDiv.getAttribute('data-section')
+
 
 if (sectionRef === "dashboard") {
     notesAddTagRef = document.getElementById('notesAdd-tag');
@@ -41,45 +42,7 @@ else if (sectionRef !== "dashboard") {
     notesDeleteRef = document.getElementById('archiveDelete-note');
 }
 
-let navbarToggler = document.getElementById('navbarHamburger');
-let navbar = document.getElementById('navbar');
-
-let yesterdayDate = new Date();
-yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-
-let acceptModalButton = document.getElementById('acceptModal');
-
-
 let selectedNotes = [];
-
-var defaultOptions = {
-    color: 'primary',
-    isRange: false,
-    allowSameDayRange: true,
-    lang: 'en-US',
-    endDate: undefined,
-    maxDate: null,
-    disabledDates: [yesterdayDate],
-    disabledWeekDays: undefined,
-    highlightedDates: [],
-    dateFormat: 'yyyy-MM-dd',
-    timeFormat: 'HH:mm:ss',
-    enableMonthSwitch: true,
-    enableYearSwitch: true,
-    displayYearsCount: 50,
-    displayMode: 'dialog',
-    type: 'datetime',
-    validateLabel: 'Set reminder',
-    showTodayButton: false,
-    minDate: yesterdayDate,
-    startDate: new Date(),
-    weekStart: 1,
-    showButtons: false,
-
-};
-
-const calendars = bulmaCalendar.attach('[type="date"]', defaultOptions);
-
 
 //DASHBOARD PART
 const notes = document.getElementsByClassName('note');
@@ -88,41 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < notes.length; i++) {
         clickAndHold(notes[i]);
     }
-})
-
-
-
-navbarToggler.addEventListener('click', e => {
-    navbar.classList.toggle('is-hidden');
-    isUserMenuClosed = !isUserMenuClosed;
-})
-
-//EVENT LISTENER FOR RESIZING TO SHOW (OR NOT) NAVBAR
-window.addEventListener('resize', () => {
-    if (window.getComputedStyle(navbarToggler).getPropertyValue('display') === 'none') {
-        navbar.classList.remove('is-hidden');
-    }
-    if (window.getComputedStyle(navbarToggler).getPropertyValue('display') !== 'none') {
-        if (isUserMenuClosed) {
-
-            navbar.classList.add('is-hidden');
-        }
-    }
-})
-
-//USER PART OF NAVBAR
-userRef.addEventListener('click', (e) => {
-    userOptionsRef.classList.toggle('is-hidden');
-})
-
-logOutOption.addEventListener('mouseenter', (e) => {
-    logOutOption.classList.add('has-background-danger');
-    logOutOption.classList.toggle('has-text-white');
-})
-
-logOutOption.addEventListener('mouseout', (e) => {
-    logOutOption.classList.remove('has-background-danger');
-    logOutOption.classList.toggle('has-text-white');
 })
 
 const clickAndHold = (btnEl) => {
@@ -197,21 +125,23 @@ const clickAndHold = (btnEl) => {
 };
 
 
-//MODAL LOGIC
-let modal = document.getElementById('archiveModal');
+//ARCHIVE MODAL LOGIC
 
+let archiveModal = document.getElementById('archive-modal');
+let acceptArchiveButton = document.getElementById('acceptModal archive-modal');
+let denyArchiveButton = document.getElementById('closeModal archive-modal');
+
+//Move to archived
 notesArchiveRef.children[0].addEventListener('click', (e) => {
-    modal.classList.add('is-active');
-
+    archiveModal.classList.add('is-active');
 })
 
-let closeModalButton = document.getElementById('closeModal');
-closeModalButton.addEventListener('click', () => {
-    modal.classList.remove('is-active');
+denyArchiveButton.addEventListener('click', () => {
+    archiveModal.classList.remove('is-active');
 })
 
-acceptModalButton.addEventListener('click', async e => {
-    acceptModalButton.classList.toggle('is-loading');
+acceptArchiveButton.addEventListener('click', async e => {
+    acceptArchiveButton.classList.toggle('is-loading');
     const response = await fetch('http://localhost:8000/archiveNotes', {
         method: 'POST',
         headers: {
@@ -226,8 +156,41 @@ acceptModalButton.addEventListener('click', async e => {
     if (responseJSON.ok) {
         location.reload();
     }
-    acceptModalButton.classList.toggle('is-loading');
+    acceptArchiveButton.classList.toggle('is-loading');
+    archiveModal.classList.remove('is-active');
+})
 
-    modal.classList.remove('is-active');
+//REMOVE NOTES LOGIC
 
+let deleteModal = document.getElementById('delete-modal');
+let acceptDeleteButton = document.getElementById('acceptModal delete-modal');
+let denyDeleteButton = document.getElementById('closeModal delete-modal');
+
+//Remove
+notesDeleteRef.children[0].addEventListener('click', (e) => {
+    deleteModal.classList.add('is-active');
+})
+
+denyDeleteButton.addEventListener('click', () => {
+    deleteModal.classList.remove('is-active');
+})
+
+acceptDeleteButton.addEventListener('click', async e => {
+    acceptDeleteButton.classList.toggle('is-loading');
+    const response = await fetch('http://localhost:8000/deleteNotes', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            selectedNotes
+        })
+    });
+    const responseJSON = await response;
+    if (responseJSON.ok) {
+        location.reload();
+    }
+    acceptDeleteButton.classList.toggle('is-loading');
+    deleteModal.classList.remove('is-active');
 })

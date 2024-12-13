@@ -2,6 +2,8 @@
 
 import tinycolor from "tinycolor2";
 
+import VanillaTilt from "vanilla-tilt";
+
 const props = defineProps({
   title: {
     type: String,
@@ -57,10 +59,13 @@ if (props.reminderDate !== undefined) {
     hours = "0" + hours;
   }
 }
+
+VanillaTilt.init(document.querySelectorAll(".tilt"));
+
 </script>
 
 <template>
-  <div id="notePreview" class="card sn-card-fade">
+  <div data-tilt id="notePreview" class="card sn-card-fade tilt">
     <div class="card-content ">
       <div class="title sn-card-color-text has-text-weight-semibold has-text-left">
         <p>{{ title }}</p>
