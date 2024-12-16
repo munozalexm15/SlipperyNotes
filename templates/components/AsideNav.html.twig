@@ -31,7 +31,7 @@
                         <span>Notes</span>
                     </a>
 
-                    {% if app.request.get('_route') != 'archived' %}
+
                     <ul data-controller="notesOptions" id="notesOptions">
                         <li style="user-select: none;">
                             <a href="{{ path('new_note') }}">
@@ -41,13 +41,18 @@
                                 Create Note
                             </a>
                         </li>
+                    {% if app.request.get('_route') == 'archived' %}
+                    </ul>
+                    {% endif %}
+
+                    {% if app.request.get('_route') != 'archived' %}
 
                         <li id="notesAdd-tag" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
                                 <span class="icon is-left">
                                     {{ ux_icon('proicons:tag') }}
                                 </span>
-                                Add Tags
+                                Add a Tag
                             </a>
                         </li>
 
@@ -70,7 +75,7 @@
                         </li>
                     </ul>
                     {% endif %}
-                </li>
+
 
                 <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
                     <a id="archived" class="{{ app.request.get('_route') == 'archived' ? 'is-active-sn' : 'none' }}" href="{{ app.request.get('_route') == 'archived' ? '#' : path('archived') }}">
@@ -82,16 +87,7 @@
 
                     {% if app.request.get('_route') == 'archived' %}
                     <ul data-controller="archivedOptions" id="archivedOptions">
-                        <li style="user-select: none;">
-                            <a href="{{ path('new_note') }}">
-                                <span class="icon is-left">
-                                     {{ ux_icon('proicons:add-circular') }}
-                                </span>
-                                Create Archived Note
-                            </a>
-                        </li>
-
-                        <li id="archiveAdd-tag" class=" is-size-4 has-text-weight-medium" style="user-select: none;">
+                        <li id="archiveAdd-tag" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
                         <span class="icon is-left">
                             {{ ux_icon('proicons:tag') }}
@@ -100,7 +96,7 @@
                             </a>
                         </li>
 
-                        <li id="archiveRemove-archived" class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                        <li id="archiveRemove-archived" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
                         <span class="icon is-left">
                             {{ ux_icon('proicons:checkbox-indeterminate') }}
@@ -109,7 +105,7 @@
                             </a>
                         </li>
 
-                        <li id="archiveDelete-note" class=" is-size-4 has-text-weight-medium " style="user-select: none;">
+                        <li id="archiveDelete-note" class=" is-size-4 has-text-weight-medium is-hidden" style="user-select: none;">
                             <a>
                         <span class="icon is-left">
                             {{ ux_icon('proicons:delete') }}

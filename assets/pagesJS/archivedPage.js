@@ -117,21 +117,23 @@ const clickAndHold = (btnEl) => {
 
 
 //MODAL LOGIC
-let modal = document.getElementById('archiveModal');
+let archiveModal = document.getElementById('archive-modal');
+let acceptArchiveButton = document.getElementById('acceptModal archive-modal');
+let denyArchiveButton = document.getElementById('closeModal archive-modal');
 
 notesArchiveRef.children[0].addEventListener('click', (e) => {
-    modal.classList.add('is-active');
+    archiveModal.classList.add('is-active');
 
 })
 
 let closeModalButton = document.getElementById('closeModal');
-closeModalButton.addEventListener('click', () => {
-    modal.classList.remove('is-active');
+denyArchiveButton.addEventListener('click', () => {
+    archiveModal.classList.remove('is-active');
 })
 
-acceptModalButton.addEventListener('click', async e => {
-    acceptModalButton.classList.toggle('is-loading');
-    const response = await fetch('http://localhost:8000/archiveNotes', {
+acceptArchiveButton.addEventListener('click', async e => {
+    acceptArchiveButton.classList.toggle('is-loading');
+    const response = await fetch('http://localhost:8000/unarchiveNotes', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -147,6 +149,39 @@ acceptModalButton.addEventListener('click', async e => {
     }
     acceptModalButton.classList.toggle('is-loading');
 
-    modal.classList.remove('is-active');
+    archiveModal.classList.remove('is-active');
 
+})
+
+//REMOVE NOTES
+let deleteModal = document.getElementById('delete-modal');
+let acceptDeleteButton = document.getElementById('acceptModal delete-modal');
+let denyDeleteButton = document.getElementById('closeModal delete-modal');
+
+notesDeleteRef.children[0].addEventListener('click', (e) => {
+    deleteModal.classList.add('is-active');
+})
+
+denyDeleteButton.addEventListener('click', () => {
+    deleteModal.classList.remove('is-active');
+})
+
+acceptDeleteButton.addEventListener('click', async e => {
+    acceptDeleteButton.classList.toggle('is-loading');
+    const response = await fetch('http://localhost:8000/deleteNotes', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            selectedNotes
+        })
+    });
+    const responseJSON = await response;
+    if (responseJSON.ok) {
+        location.reload();
+    }
+    acceptDeleteButton.classList.toggle('is-loading');
+    deleteModal.classList.remove('is-active');
 })

@@ -26,8 +26,3 @@ var count = 0
 
 var startButton = document.getElementById('startBtn')
 registerVueControllerComponents(require.context('../vue/controllers', true, /\.vue$/));
-
-function checkCount() {
-    count++;
-    console.log(count);
-}

@@ -7,6 +7,12 @@
         {% if this.message %}
         <section class="modal-card-body">
             {{ this.message }}
+
+            {% if this.modaltype == "TAGS" %}
+            <div class="">
+                <input id ="selectedTag {{ this.id }}" class="input" type="text">
+            </div>
+            {% endif %}
         </section>
         {% endif %}
 

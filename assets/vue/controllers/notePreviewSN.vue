@@ -1,5 +1,5 @@
 <script setup>
-
+import bulmaCalendar from "bulma-calendar";
 import tinycolor from "tinycolor2";
 
 import VanillaTilt from "vanilla-tilt";
@@ -21,6 +21,10 @@ const props = defineProps({
     type: String,
     required: false,
     default: "#1F9BFD"
+  },
+  tags: {
+    required: false,
+    type: Array,
   }
 });
 
@@ -65,6 +69,8 @@ VanillaTilt.init(document.querySelectorAll(".tilt"));
 </script>
 
 <template>
+
+
   <div data-tilt id="notePreview" class="card sn-card-fade tilt">
     <div class="card-content ">
       <div class="title sn-card-color-text has-text-weight-semibold has-text-left">
@@ -78,14 +84,22 @@ VanillaTilt.init(document.querySelectorAll(".tilt"));
           <div v-html="content"></div>
         </div>
 
-        <p v-if="reminderDate !== undefined" class="is-fixed-bottom sn-card-color-text mt-2">
-          <span class="mr-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M18.934 14.98a3 3 0 0 1-.457-1.59V9.226a6.477 6.477 0 0 0-12.954 0v4.162a3 3 0 0 1-.457 1.592l-1.088 1.74a1 1 0 0 0 .848 1.53h14.348a1 1 0 0 0 .848-1.53z"/><path d="M10 21.25h4"/></g></svg>
-          </span> <span v-if="minutes !== '00' || hours !== '00'">{{hours}}:{{minutes}} | </span>{{day}}-{{ month }}-{{year}}</p>
+        <section class="columns">
+          <p v-if="reminderDate !== undefined" class="is-fixed-bottom sn-card-color-text mt-2 column">
+            <span class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M18.934 14.98a3 3 0 0 1-.457-1.59V9.226a6.477 6.477 0 0 0-12.954 0v4.162a3 3 0 0 1-.457 1.592l-1.088 1.74a1 1 0 0 0 .848 1.53h14.348a1 1 0 0 0 .848-1.53z"/><path d="M10 21.25h4"/></g></svg>
+            </span> <span v-if="minutes !== '00' || hours !== '00'">{{hours}}:{{minutes}} | </span>{{day}}-{{ month }}-{{year}}
+          </p>
+
+
+
+        </section>
       </div>
 
     </footer>
   </div>
+
+
 
 </template>
 

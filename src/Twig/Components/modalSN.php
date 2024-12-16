@@ -9,4 +9,5 @@ class modalSN {
     public bool $hasInputField;
     public string $message;
     public string $id;
+    public string $modaltype;
 }
