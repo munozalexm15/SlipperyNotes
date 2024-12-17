@@ -17,17 +17,18 @@ At the moment I'm still working on it, so don't expect to see a fully working ap
  - [X] Database done (Entities, controllers, etc.)
  - [X] Homepage
  - [X] Login and register formularies (With user token, password encryption, etc.)
- - [X] User page (Where he can search, create, delete notes) -> WIP
- - [X] Notes creation / edit page-> WIP
- - [ ] Erase notes
- - [ ] Archive notes
- - [ ] Add tags (And allow users to set tags to notes)
+ - [X] User page (Where he can search, create, delete notes) -> Remains styles (WIP)
+ - [X] Notes creation / edit page-> Remains styles (WIP)
+ - [X] Erase notes
+ - [X] Archive notes
+ - [X] Add tags (And allow users to set tags to notes) -> Remains styles (WIP)
  - [ ] Add reminders to the notes and notify users when it's time
+ - [ ] Add pagination and search queries
  - [?] Allow to append photos to the notes
  - [?] Configure user data (Add profile picture, add name and surnames, etc.)
  - [ ] Erase account
 
-#WARNING
+# WARNING
 
 The project uses FOSCKEditorBundle, which supports CKEDITOR4.
  

@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Config\Framework\RequestConfig;
+use function Webmozart\Assert\Tests\StaticAnalysis\length;
 
 class NotesController extends AbstractController
 {
@@ -131,7 +132,7 @@ class NotesController extends AbstractController
     {
         $params = json_decode($request->getContent(), true);
 
-        $tag = $entityManager->getRepository(Categories::class)->findOneBy(array('name' =>$params['selectedTag']));
+        $tag = $entityManager->getRepository(Categories::class)->findOneBy(array('name' =>(strtolower($params['selectedTag'])) ));
         if ($tag == null) {
             $tag = new Categories();
 
@@ -169,8 +170,15 @@ class NotesController extends AbstractController
         }
 
         $note->removeIdCategory($tag);
+
         $entityManager->persist($note);
         $entityManager->flush();
+
+        if ($tag->getIdNote()->count() == 0) {
+            $entityManager->remove($tag);
+            $entityManager->flush();
+        }
+
         return $this->redirectToRoute('dashboard');
     }
 

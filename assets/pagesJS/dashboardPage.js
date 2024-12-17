@@ -261,6 +261,8 @@ acceptDeleteButton.addEventListener('click', async e => {
     deleteModal.classList.remove('is-active');
 })
 
+
+//MODAL ADD TAG LOGIC
 setModalTagConfig(notesAddTagRef, denyTagButton, acceptTagButton, tagModal);
 
 function setModalTagConfig(notesAddTagRef, denyTagButton, acceptTagButton, tagModal) {
