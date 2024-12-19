@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        {{ knp_pagination_rel_links(pagination) }}
         <!-- ESTO EVITA QUE TURBO CARGUE PETICIONES ANTES DE HACER CLICK EN ENLACES -->
         <meta name="turbo-prefetch" content="false">
          <title>{% block title %}Your Notes{% endblock %}</title>
@@ -36,11 +37,11 @@
                     <!-- LISTAR NOTAS AQUI -->
                     <div class="column is-9-desktop is-8-tablet ">
                         <div class="grid is-col-min-12">
-                            {%  if notes|length == 0 %}
+                            {%  if pagination.getTotalItemCount == 0 %}
                                 <p class="is-size-4 has-text-weight-medium has-text-grey-light">Seems like you haven't created any notes yet. <a href="{{ path('new_note') }}">Get started</a></p>
                             {% endif %}
 
-                            {%  for note in notes %}
+                            {%  for note in pagination %}
                                 {% set tagsARR = [] %}
 
                                 {% for tag in note.idCategory %}
@@ -89,6 +90,9 @@
                                     </a>
                                 </div>
                             {% endfor %}
+                        </div>
+                        <div class="mx-5">
+                            {{ knp_pagination_render(pagination) }}
                         </div>
                     </div>
 

@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Notes;
 use App\Entity\Users;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -61,7 +61,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/dashboard', name: 'dashboard')]
-    public function dashboard(EntityManagerInterface $entityManager) : Response
+    public function dashboard(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request) : Response
     {
         if (!$this->getUser()) {
             $this->redirectToRoute('homepage');
@@ -77,10 +77,15 @@ class UserController extends AbstractController
             WHERE n.idUser = :user AND n.isArchived = false
             ORDER BY n.id'
         )->setParameter('user', $user);
+        # $notes = $query -> getResult();
+        $pagination = $paginator -> paginate(
+            $query,
+            $request->query->getInt('page', 1), 8
+        );
 
-        $notes = $query -> getResult();
+
         return $this->render(
-            '/user/index.html.twig', ['user' => $user, 'notes' => $notes, 'section' => 'dashboard']);
+            '/user/index.html.twig', ['user' => $user, 'pagination' => $pagination, 'section' => 'dashboard']);
     }
 
     #[Route('/archived', name: 'archived')]

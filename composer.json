@@ -15,6 +15,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
         "friendsofsymfony/ckeditor-bundle": "^2.5",
+        "knplabs/knp-paginator-bundle": "^6.6",
         "phpdocumentor/reflection-docblock": "^5.5",
         "phpstan/phpdoc-parser": "^1.33",
         "symfony/asset": "7.1.*",
@@ -54,7 +55,8 @@
         "symfony/yaml": "7.1.*",
         "symfonycasts/verify-email-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+      "ext-http": "*"
     },
     "config": {
         "allow-plugins": {
