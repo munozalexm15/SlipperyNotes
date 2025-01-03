@@ -182,10 +182,6 @@ class NotesController extends AbstractController
         return $this->redirectToRoute('dashboard');
     }
 
-
-
-
-
     #[Route('/deleteNotes', name: 'delete_notes')]
     public function deleteNotes(Request $request, EntityManagerInterface $entityManager): Response
     {

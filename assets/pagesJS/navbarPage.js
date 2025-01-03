@@ -2,8 +2,6 @@ import '../bootstrap.js';
 import 'bulma/css/bulma.css'
 import '../styles/dashboardPage.css';
 
-let userRef = document.getElementById('user');
-let userOptionsRef = document.getElementById('userOptions');
 let logOutOption = document.getElementById('logOutOption');
 let isUserMenuClosed = false;
 
@@ -28,11 +26,6 @@ window.addEventListener('resize', () => {
     }
 })
 
-//USER PART OF NAVBAR
-userRef.addEventListener('click', (e) => {
-    userOptionsRef.classList.toggle('is-hidden');
-})
-
 logOutOption.addEventListener('mouseenter', (e) => {
     logOutOption.classList.add('has-background-danger');
     logOutOption.classList.toggle('has-text-white');
@@ -42,3 +35,4 @@ logOutOption.addEventListener('mouseout', (e) => {
     logOutOption.classList.remove('has-background-danger');
     logOutOption.classList.toggle('has-text-white');
 })
+

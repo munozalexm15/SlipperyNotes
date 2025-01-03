@@ -52,8 +52,6 @@ Encore
 
     .addEntry('dashboardPage', './assets/pagesJS/dashboardPage.js')
 
-    .addEntry('archivedPage', './assets/pagesJS/archivedPage.js')
-
     .addEntry('createNotePage', './assets/pagesJS/createNotePage.js')
 
     .addEntry('navbarPage', './assets/pagesJS/navbarPage.js')

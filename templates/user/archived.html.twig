@@ -11,7 +11,7 @@
     {% endblock %}
 
     {% block javascripts %}
-        {{ encore_entry_script_tags('archivedPage') }}
+        {{ encore_entry_script_tags('dashboardPage') }}
         {{ encore_entry_script_tags('navbarPage') }}
     {% endblock %}
 </head>
@@ -31,16 +31,16 @@
             <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
 
                 <!-- ASIDE -->
-                {{ component('AsideNav', {userId: user.id, username: user.username}) }}
+                {{ component('AsideNav', {userId: user.id, username: user.username, form: form}) }}
 
                 <!-- LISTAR NOTAS AQUI -->
                 <div class="column is-9-desktop is-8-tablet ">
                     <div class="grid is-col-min-12">
-                        {%  if notes|length == 0 %}
+                        {%  if pagination.getTotalItemCount == 0 %}
                             <p class="is-size-4 has-text-weight-medium has-text-grey-light">Seems like you haven't created any notes yet. <a href="{{ path('new_note') }}">Get started</a></p>
                         {% endif %}
 
-                        {%  for note in notes %}
+                        {%  for note in pagination %}
                         {% set tagsARR = [] %}
 
                         {% for tag in note.idCategory %}
@@ -89,6 +89,9 @@
                                 </a>
                             </div>
                         {% endfor %}
+                    </div>
+                    <div class="mx-5">
+                        {{ knp_pagination_render(pagination) }}
                     </div>
                 </div>
 

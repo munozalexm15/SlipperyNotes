@@ -14,6 +14,13 @@ let notesAddTagRef = null
 let notesArchiveRef = null
 let notesDeleteRef = null
 
+let archiveModal = document.getElementById('archive-modal');
+let acceptArchiveButton = document.getElementById('acceptModal archive-modal');
+let denyArchiveButton = document.getElementById('closeModal archive-modal');
+
+let parentDiv = document.getElementById('parent');
+let sectionRef = parentDiv.getAttribute('data-section')
+
 let notes = document.getElementsByClassName('note');
 let addTagRefs = document.getElementsByClassName('add-tag');
 
@@ -21,50 +28,15 @@ let tagModal = document.getElementById('tag-modal');
 let acceptTagButton = document.getElementById('acceptModal tag-modal');
 let denyTagButton = document.getElementById('closeModal tag-modal');
 
-let userRef = document.getElementById('user');
-let userOptionsRef = document.getElementById('userOptions');
-let logOutOption = document.getElementById('logOutOption');
-let isUserMenuClosed = false;
-
-let navbarToggler = document.getElementById('navbarHamburger');
-let navbar = document.getElementById('navbar');
-
-navbarToggler.addEventListener('click', e => {
-    navbar.classList.toggle('is-hidden');
-    isUserMenuClosed = !isUserMenuClosed;
-})
-
-//EVENT LISTENER FOR RESIZING TO SHOW (OR NOT) NAVBAR
-window.addEventListener('resize', () => {
-    if (window.getComputedStyle(navbarToggler).getPropertyValue('display') === 'none') {
-        navbar.classList.remove('is-hidden');
-    }
-    if (window.getComputedStyle(navbarToggler).getPropertyValue('display') !== 'none') {
-        if (isUserMenuClosed) {
-
-            navbar.classList.add('is-hidden');
-        }
-    }
-})
-
-//USER PART OF NAVBAR
-userRef.addEventListener('click', (e) => {
-    userOptionsRef.classList.toggle('is-hidden');
-})
-
-logOutOption.addEventListener('mouseenter', (e) => {
-    logOutOption.classList.add('has-background-danger');
-    logOutOption.classList.toggle('has-text-white');
-})
-
-logOutOption.addEventListener('mouseout', (e) => {
-    logOutOption.classList.remove('has-background-danger');
-    logOutOption.classList.toggle('has-text-white');
-})
-
-//force turbo to reload notes and it's data
 document.addEventListener("turbo:load", function() {
     notes = document.getElementsByClassName('note');
+    parentDiv = document.getElementById('parent');
+    sectionRef = parentDiv.getAttribute('data-section')
+
+    archiveModal = document.getElementById('archive-modal');
+    acceptArchiveButton = document.getElementById('acceptModal archive-modal');
+    denyArchiveButton = document.getElementById('closeModal archive-modal');
+
     if (sectionRef === "dashboard") {
         notesAddTagRef = document.getElementById('notesAdd-tag');
         notesArchiveRef = document.getElementById('notesAdd-archived');
@@ -97,7 +69,7 @@ document.addEventListener("turbo:load", function() {
     }
 
     setModalTagConfig(notesAddTagRef, denyTagButton, acceptTagButton, tagModal);
-
+    setNavButtonsBehavior()
 });
 
 var defaultOptions = {
@@ -139,10 +111,6 @@ let yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() - 1);
 
 let acceptModalButton = document.getElementById('acceptModal');
-
-const parentDiv = document.getElementById('parent');
-const sectionRef = parentDiv.getAttribute('data-section')
-
 
 if (sectionRef === "dashboard") {
     notesAddTagRef = document.getElementById('notesAdd-tag');
@@ -229,79 +197,99 @@ function clickAndHold(btnEl) {
         btnEl.removeEventListener("mouseup", clearTimer);
         btnEl.removeEventListener("mouseout", clearTimer);
     };
-};
-
+}
 
 //ARCHIVE MODAL LOGIC
+archiveModal = document.getElementById('archive-modal');
+acceptArchiveButton = document.getElementById('acceptModal archive-modal');
+denyArchiveButton = document.getElementById('closeModal archive-modal');
 
-let archiveModal = document.getElementById('archive-modal');
-let acceptArchiveButton = document.getElementById('acceptModal archive-modal');
-let denyArchiveButton = document.getElementById('closeModal archive-modal');
+setNavButtonsBehavior()
 
-//Move to archived
-notesArchiveRef.children[0].addEventListener('click', (e) => {
-    archiveModal.classList.add('is-active');
-})
+function setNavButtonsBehavior() {
+    //MOVE - REMOVE FROM ARCHIVED
 
-denyArchiveButton.addEventListener('click', () => {
-    archiveModal.classList.remove('is-active');
-})
+    notesArchiveRef.children[0].addEventListener('click', (e) => {
+        archiveModal.classList.add('is-active');
+    })
 
-acceptArchiveButton.addEventListener('click', async e => {
-    acceptArchiveButton.classList.toggle('is-loading');
-    const response = await fetch('http://localhost:8000/archiveNotes', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            selectedNotes
-        })
-    });
-    const responseJSON = await response;
-    if (responseJSON.ok) {
-        location.reload();
-    }
-    acceptArchiveButton.classList.toggle('is-loading');
-    archiveModal.classList.remove('is-active');
-})
+    denyArchiveButton.addEventListener('click', () => {
+        archiveModal.classList.remove('is-active');
+    })
+
+    acceptArchiveButton.addEventListener('click', async e => {
+        acceptArchiveButton.classList.toggle('is-loading');
+
+        if (sectionRef === "dashboard") {
+            const response = await fetch('http://localhost:8000/archiveNotes', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    selectedNotes
+                })
+            });
+            const responseJSON = await response;
+            if (responseJSON.ok) {
+                location.reload();
+            }
+        }
+        else {
+            const response = await fetch('http://localhost:8000/unarchiveNotes', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    selectedNotes
+                })
+            });
+            const responseJSON = await response;
+            if (responseJSON.ok) {
+                location.reload();
+            }
+        }
+        acceptArchiveButton.classList.toggle('is-loading');
+        archiveModal.classList.remove('is-active');
+    })
 
 //REMOVE NOTES LOGIC
 
-let deleteModal = document.getElementById('delete-modal');
-let acceptDeleteButton = document.getElementById('acceptModal delete-modal');
-let denyDeleteButton = document.getElementById('closeModal delete-modal');
+    let deleteModal = document.getElementById('delete-modal');
+    let acceptDeleteButton = document.getElementById('acceptModal delete-modal');
+    let denyDeleteButton = document.getElementById('closeModal delete-modal');
 
-//Remove
-notesDeleteRef.children[0].addEventListener('click', (e) => {
-    deleteModal.classList.add('is-active');
-})
+    notesDeleteRef.children[0].addEventListener('click', (e) => {
+        deleteModal.classList.add('is-active');
+    })
 
-denyDeleteButton.addEventListener('click', () => {
-    deleteModal.classList.remove('is-active');
-})
+    denyDeleteButton.addEventListener('click', () => {
+        deleteModal.classList.remove('is-active');
+    })
 
-acceptDeleteButton.addEventListener('click', async e => {
-    acceptDeleteButton.classList.toggle('is-loading');
-    const response = await fetch('http://localhost:8000/deleteNotes', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            selectedNotes
-        })
-    });
-    const responseJSON = await response;
-    if (responseJSON.ok) {
-        location.reload();
-    }
-    acceptDeleteButton.classList.toggle('is-loading');
-    deleteModal.classList.remove('is-active');
-})
-
+    acceptDeleteButton.addEventListener('click', async e => {
+        acceptDeleteButton.classList.toggle('is-loading');
+        const response = await fetch('http://localhost:8000/deleteNotes', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                selectedNotes
+            })
+        });
+        const responseJSON = await response;
+        if (responseJSON.ok) {
+            location.reload();
+        }
+        acceptDeleteButton.classList.toggle('is-loading');
+        deleteModal.classList.remove('is-active');
+    })
+}
 
 //MODAL ADD TAG LOGIC
 setModalTagConfig(notesAddTagRef, denyTagButton, acceptTagButton, tagModal);

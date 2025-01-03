@@ -9,15 +9,26 @@
                 <span aria-hidden="true"></span>
             </a>
 
+            {% if form %}
 
-            <div class="field has-text-left is-fullwidth column is-12-tablet is-11-mobile">
-                <div class="control has-icons-left">
-                    <input type="text" placeholder="Search by tag:title:content" name="searchField" id="searchFieldInput" class="focusTransition form-control input" autocomplete="username" required>
-                    <span class="icon is-left is-small">
+                {{ form_start(form) }}
+                <div class="field has-addons has-text-left is-fullwidth column is-12-tablet is-11-mobile">
+                    <div class="control has-icons-left">
+                        <input required value="{{ field_value(form.searchText) }}" type="text" placeholder="{{ field_label(form.searchText) }}" name="{{ field_name(form.searchText) }}" class="focusTransition form-control input">
+                        <span class="icon is-left is-small">
                             {{ ux_icon('octicon:search-24', {height: '16px', width: '16px', 'aria-hidden': true}) }}
                         </span>
+                    </div>
+                    <div class="control">
+                        <button type="submit" id="search-btn" class="button is-info">
+                            Search
+                        </button>
+                    </div>
                 </div>
-            </div>
+                {{ form_end(form) }}
+
+            {% endif %}
+
         </section>
 
         <aside id="navbar" class="menu pt-3">
@@ -136,14 +147,8 @@
                         </span>
                         <span class="txt-sp">{{ this.username }}</span>
                     </a>
-                    <ul id="userOptions" class="is-hidden">
+                    <ul id="userOptions">
                         <li style="user-select: none;">
-                            <a href="#">
-                                <span class="icon is-left">
-                                     {{ ux_icon('icon-park-outline:config') }}
-                                </span>
-                                Configuration
-                            </a>
                         </li>
 
                         <li style="user-select: none;" class="is-danger">
@@ -156,7 +161,6 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
         </aside>
     </div>
 </div>
