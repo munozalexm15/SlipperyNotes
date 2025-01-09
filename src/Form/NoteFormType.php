@@ -26,7 +26,7 @@ class NoteFormType extends AbstractType
             ->add('title', TextType::class)
             ->add('content', CKEditorType::class, [
                 'config' => [
-                    'uiColor' => '#ffffff',
+                    'config_name' => 'sn_editor_config',
                 ]]
             )
             ->add('reminderDate', DateTimeType::class, [

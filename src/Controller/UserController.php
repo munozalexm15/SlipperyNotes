@@ -190,4 +190,45 @@ class UserController extends AbstractController
         return $this->render(
             '/user/archived.html.twig', ['user' => $user, 'pagination' => $pagination, 'section' => 'archived', 'form' => $form]);
     }
+
+    #[Route('/reminders', name: 'reminders')]
+    public function reminders(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request) : Response
+    {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('homepage');
+        }
+
+        $userID = null;
+        if ($this->getUser()) {
+            $userID = $this->getUser()->getUserIdentifier();
+        }
+        $user =  $entityManager -> getRepository(Users::class)->find($userID);
+        $query = $entityManager ->createQuery(
+            'SELECT n from App\Entity\Notes n
+            WHERE n.idUser = :user AND n.reminderDate is not null
+            ORDER BY n.reminderDate DESC'
+        )->setParameter('user', $user);
+
+        # $notes = $query -> getResult();
+        $pagination = $paginator -> paginate(
+            $query,
+            $request->query->getInt('page', 1), 8
+        );
+
+        $form = $this->createForm(SearchFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+
+            $textSearch = $form->getData();
+            $text = $textSearch['searchText'];
+
+            return $this->redirectToRoute('search', ['searchText' => $text]);
+        }
+
+        return $this->render(
+            '/user/reminders.html.twig', ['user' => $user, 'pagination' => $pagination, 'section' => 'reminders', 'form' => $form]);
+    }
 }

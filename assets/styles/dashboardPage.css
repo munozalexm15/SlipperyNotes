@@ -62,7 +62,7 @@ button:hover {
 
 .title-input  {
     border: none;
-    border-bottom: 2px solid #acacac;
+    border-bottom: 2px solid #FFFFFF;
     width: 100%;
     background: none;
     color: white;
@@ -70,7 +70,7 @@ button:hover {
 .title-input:focus {
     border: none;
     outline: none;
-    border-bottom: 2px solid #0281e8;
+    border-bottom: 2px solid #0066b1;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 

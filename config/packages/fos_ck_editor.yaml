@@ -1,3 +1,13 @@
 fos_ck_editor:
   base_path: "build/ckeditor"
   js_path: "build/ckeditor/ckeditor.js"
+  configs:
+    sn_editor_config:
+      toolbar: "sn_toolbar"
+      uiColor: "#1F9BFD"
+      resize_enabled: false
+      height: 350
+
+  toolbars:
+    configs:
+      sn_toolbar: [ ['Bold', 'Italic'], ['Image', 'Link', 'Unlink'], ['NumberedList', 'BulletedList']]

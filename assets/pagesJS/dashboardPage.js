@@ -43,7 +43,7 @@ document.addEventListener("turbo:load", function() {
         notesDeleteRef = document.getElementById('notesRemove-note');
     }
 
-    else if (sectionRef !== "dashboard") {
+    else if (sectionRef === "archived") {
         notesAddTagRef = document.getElementById('archiveAdd-tag');
         notesArchiveRef = document.getElementById('archiveRemove-archived');
         notesDeleteRef = document.getElementById('archiveDelete-note');
@@ -56,6 +56,9 @@ document.addEventListener("turbo:load", function() {
     denyTagButton = document.getElementById('closeModal tag-modal');
 
     selectedNotes = []
+    if (sectionRef === "reminders") {
+        return
+    }
     for (let i = 0; i < notes.length; i++) {
         clickAndHold(notes[i]);
     }
@@ -119,7 +122,7 @@ if (sectionRef === "dashboard") {
 
 }
 
-else if (sectionRef !== "dashboard") {
+else if (sectionRef === "archived") {
     notesAddTagRef = document.getElementById('archiveAdd-tag');
     notesArchiveRef = document.getElementById('archiveRemove-archived');
     notesDeleteRef = document.getElementById('archiveDelete-note');

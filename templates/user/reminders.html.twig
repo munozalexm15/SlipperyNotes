@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- ESTO EVITA QUE TURBO CARGUE PETICIONES ANTES DE HACER CLICK EN ENLACES -->
+    <meta name="turbo-prefetch" content="false">
+    <title>{% block title %}Your Notes{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('dashboardPage') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('dashboardPage') }}
+        {{ encore_entry_script_tags('navbarPage') }}
+    {% endblock %}
+</head>
+<body class="no-select">
+
+{% block body %}
+
+    <div id="parent" data-section="{{ section }}">
+        <div class="main-content title container-center">
+            <div class="columns has-3-cols m-0">
+                <div class="column is-3-fullhd is-3-widescreen is-3-desktop is-4-tablet square-rounded-ng">
+                    <h1 class="title is-size-1-full-hd is-size-2-desktop is-size-2-widescreen text-white">YOUR NOTES</h1>
+                </div>
+                <div class="column is-2-fullhd is-2-widescreen is-2-desktop is-1-tablet"></div>
+            </div>
+            <hr class="p-0 m-0">
+            <div class="columns has-2-cols-tablet has-1-cols-mobile pt-5 ">
+
+                <!-- ASIDE -->
+                {{ component('AsideNav', {userId: user.id, username: user.username, form: form}) }}
+
+                <!-- LISTAR NOTAS AQUI -->
+                <div class="column is-9-desktop is-8-tablet ">
+                    <div class="grid is-col-min-12">
+                        {%  if pagination.getTotalItemCount == 0 %}
+                            <p class="is-size-4 has-text-weight-medium has-text-grey-light">Seems like you haven't created any notes yet. <a href="{{ path('new_note') }}">Get started</a></p>
+                        {% endif %}
+
+                        {%  for note in pagination %}
+                            {% set tagsARR = [] %}
+
+                            {% for tag in note.idCategory %}
+                                {% set tagsARR = tagsARR|merge([tag.name]) %}
+                            {% endfor %}
+                            <div class="mx-5">
+
+                                <div class="dropdown is-hoverable mb-5">
+                                    <div class="dropdown-trigger">
+                                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                                                <span>
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m18.828 9.629l-5.48-5.492a3.02 3.02 0 0 0-2.196-.886l-4.324.086a2.52 2.52 0 0 0-2.467 2.472l-.086 4.334a3.03 3.03 0 0 0 .884 2.2l5.48 5.493a3.016 3.016 0 0 0 4.273 0l3.916-3.925a3.03 3.03 0 0 0 0-4.282"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4.25 15.714l4.254 4.262a6.03 6.03 0 0 0 8.544 0l3.202-3.209"/><path fill="currentColor" d="M7.967 5.798a1.15 1.15 0 1 1 .002 2.298a1.15 1.15 0 0 1-.002-2.298"/></g></svg>
+                                                  {{note.idCategory|length}}
+                                                </span>
+                                            <span class="icon is-small">
+                                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                </span>
+                                        </button>
+                                    </div>
+                                    <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                        <div class="dropdown-content">
+                                            <div class="dropdown-item">
+                                                {% for tag in note.idCategory %}
+                                                    <a style="max-width: 15em" href="{{ path('remove_tag_note', {'noteId' : note.id, 'tagId': tag.id}) }}">
+                                                        <p style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis; max-width: 10em;" class="column"> {{tag.name}}
+                                                            <span style="float: right" class="icon is-small bulma-is-col-start-end ml-4">
+                                                                {{ ux_icon('proicons:cancel-circle') }}
+                                                            </span>
+                                                        </p>
+                                                    </a>
+                                                {% endfor %}
+                                                <a id="{{ note.id }}" class="column add-tag" style="overflow: hidden;white-space: nowrap; text-overflow: ellipsis; max-width: 10em;" > Add a tag...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a id="{{ note.id }}" class="note" href="{{ path('edit_note', {'id' : note.id}) }}">
+                                        <div class="tilt" data-tilt {{ vue_component('notePreviewSN', {'title': note.title, 'content': note.content, 'reminderDate': note.reminderDate, 'color': note.color, "tags": note.idCategory}) }}></div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="mx-5">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>
+

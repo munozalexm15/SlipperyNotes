@@ -29,13 +29,6 @@
             <div class="column is-9-desktop is-8-tablet py-0">
                 <div class="mx-5">
                     {{ form_start(form) }}
-
-
-                        <div class="cell">
-                            <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
-                                <span class="txt-sp is-size-4">Submit</span>
-                            </button>
-                        </div>
                     <section class="grid">
                         <div class="cell is-flex  is-justify-content-flex-start is-flex-grow-4">
                             <input type="date"
@@ -55,7 +48,7 @@
                                        required>
                             </div>
                         </div>
-                        <footer class="card-footer mx-5 mb-5 pb-2 is-fullheight">
+                        <footer class="mx-5 mb-5 pb-2 is-fullheight">
                             <div class="is-size-5 has-text-weight-medium is-fullheight" style="width: 100%">
                                 <div class="sn-card-color-text card-footer-container my-5">
                                     {{ form_widget(form.content) }}
@@ -63,6 +56,12 @@
                             </div>
 
                         </footer>
+                    </div>
+
+                    <div class="cell">
+                        <button type="submit" id="startBtn" class="mt-5 button is-rounded button-rounded-no-outline is-size-3 bg">
+                            <span class="txt-sp is-size-4">Submit</span>
+                        </button>
                     </div>
 
                     {{ form_end(form) }}

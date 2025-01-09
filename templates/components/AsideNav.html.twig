@@ -129,7 +129,7 @@
                 </li>
 
                 <li class=" is-size-4 has-text-weight-medium" style="user-select: none;">
-                    <a id="reminder">
+                    <a id="reminder" class="{{ app.request.get('_route') == 'reminders' ? 'is-active-sn' : 'none' }}" href="{{ app.request.get('_route') == 'reminders' ? '#' : path('reminders') }}">
                         <span class="icon is-left">
                             {{ ux_icon('proicons:bell') }}
                         </span>
