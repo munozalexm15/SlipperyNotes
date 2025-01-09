@@ -32,7 +32,9 @@ class NoteFormType extends AbstractType
             ->add('reminderDate', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('color', ColorType::class)
+            ->add('color', ColorType::class, [
+                'attr' => ['class' => ' color-picker'],
+                ])
         ;
     }
 

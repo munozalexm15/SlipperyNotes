@@ -52,6 +52,13 @@
     color: #1F73FE;
 }
 
+.color-picker {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: white;
+    border: none;
+}
 
 button:hover {
     border-color: #0281e8;

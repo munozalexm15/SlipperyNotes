@@ -29,14 +29,7 @@
             <div class="column is-9-desktop is-8-tablet py-0">
                 <div class="mx-5">
                     {{ form_start(form) }}
-                    <section class="grid">
-                        <div class="cell is-flex  is-justify-content-flex-start is-flex-grow-4">
-                            <input type="date"
-                                   name="{{ field_name(form.reminderDate) }}"
-                                   value="{{ field_value(form.reminderDate) }}">
-                        </div>
-                        <div class="cell is-flex is-flex-wrap-wrap is-justify-content-flex-end">{{  form_row(form.color) }}</div>
-                    </section>
+
 
                     <div class="card sn-blue-fade m-0">
                         <div class="card-content is-fullwidth">
@@ -48,7 +41,7 @@
                                        required>
                             </div>
                         </div>
-                        <footer class="mx-5 mb-5 pb-2 is-fullheight">
+                        <footer class="mx-5 pb-2 is-fullheight">
                             <div class="is-size-5 has-text-weight-medium is-fullheight" style="width: 100%">
                                 <div class="sn-card-color-text card-footer-container my-5">
                                     {{ form_widget(form.content) }}
@@ -56,6 +49,27 @@
                             </div>
 
                         </footer>
+
+                        <section class="fixed-grid">
+
+                            <div class="grid has-2-cols mx-5 mb-3">
+                                <p class="has-text-centered" style="color: white">REMINDER DATE</p>
+                                <p class="has-text-centered" style="color: white;">COLOR</p>
+
+                                <div id="reminderDateField" data-reminder-date="{{ field_value(form.reminderDate) }}" class="cell is-justify-content-flex-start">
+                                            <div style="background-color: white" >
+                                                <input type="date"
+                                                       name="{{ field_name(form.reminderDate) }}"
+                                               value="{{ field_value(form.reminderDate) }}">
+                                    </div>
+                                </div>
+
+                                <div class="cell is-flex is-flex-wrap-wrap is-justify-content-flex-end is-align-content-center">
+                                    {{  form_widget(form.color) }}
+                                </div>
+                            </div>
+
+                        </section>
                     </div>
 
                     <div class="cell">
@@ -73,6 +87,7 @@
 </body>
 {% block javascripts %}
     {{ encore_entry_script_tags('createNotePage') }}
+    {{ encore_entry_script_tags('navbarPage') }}
 {% endblock %}
 </html>
 
